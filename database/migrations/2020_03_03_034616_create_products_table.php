@@ -56,7 +56,7 @@ class CreateProductsTable extends Migration
              $table->index("unit_id");
         });
 
-        Schema::create('product_discounts', function (Blueprint $table) {
+        Schema::create('products_discounts', function (Blueprint $table) {
              $table->bigIncrements('id');
              $table->unsignedBigInteger('product_id');
              $table->decimal('product_value')->default(0); 
@@ -80,6 +80,6 @@ class CreateProductsTable extends Migration
         Schema::dropIfExists('products');
         Schema::dropIfExists('products_images');
         Schema::dropIfExists('products_sizes');
-        Schema::dropIfExists('product_discounts');
+        Schema::dropIfExists('products_discounts');
     }
 }
