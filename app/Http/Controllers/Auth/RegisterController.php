@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Models\User;
+use App\Models\UserConfirm;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use App\Mail\RegisterUser;
+use Mail;
 
 class RegisterController extends Controller
 {
@@ -48,7 +52,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
+            'username' => 'required|alpha_dash|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
@@ -62,10 +66,53 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+        $username = $data["username"];
+        $email = $data["email"];
+        $token = base64_encode(strtolower($email.'.'.str_random(10)));
+        $roleName = "User";
+        $confirmation = 0;
+
+        $user = User::create([
+            "username"=>$username,
+            'email'=> $email,
+            "password"=>bcrypt($data["password"]),
+            'is_confirm' => $confirmation,
+            'remember_token'=> base64_encode($email)
         ]);
+
+
+        $user->assignRole($roleName);
+
+        UserConfirm::create([
+            'user_id' => $user->id,
+            'token' => $token
+        ]);
+
+        Mail::to($user->email)->send(new RegisterUser($user));
+
+        return $user;
+    }
+
+    protected function registered(Request $request, $user) {
+        $this->guard()->logout();
+        return redirect('/login')->with('info', 'You need to confirm your account. We have sent you an activation code, please check your email.');
+       
+    }
+
+    public function verify($token){
+        $userConfirm = UserConfirm::where("token", $token)->first();
+        if(!is_null($userConfirm)){
+            $user = $userConfirm->user;
+            $message = null;
+            if(!$user->confirm){
+                $userConfirm->user->confirm = 1;
+                $userConfirm->user->save();
+                $message = "Your e-mail is verified. You can now login.";
+            }else{
+                $message = "Your e-mail is already verified. You can now login.";
+            }
+            return redirect('/login')->with('success', $message);
+        }   
+        return abort(404);   
     }
 }
