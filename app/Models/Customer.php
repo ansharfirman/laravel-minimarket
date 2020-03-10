@@ -11,12 +11,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
+use App\Traits\DataTable;
 // Relations
 use App\Models\Transaction;
 
 class Customer extends Model implements Auditable {
 
     use SoftDeletes,
+        DataTable,
         \OwenIt\Auditing\Auditable;
 
     protected $dates = ['deleted_at'];
@@ -33,6 +35,16 @@ class Customer extends Model implements Auditable {
 
     public function Transaction() {
         return $this->hasMany(Transaction::class);
+    }
+
+    public function selectData(){
+        return [
+            'customers.name as customer_name',
+            'customers.email as customer_email',
+            'customers.email as customer_phone',
+            'customers.address as customer_address',
+            'customers.id as key_id'
+        ];
     }
 
 }

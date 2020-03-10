@@ -24,6 +24,7 @@ class CreateMainTables extends Migration
             $table->text('address')->nullable();
             $table->timestamps();
             $table->softDeletes();
+            $table->engine = 'InnoDB';
         });
 
         Schema::create('suppliers', function (Blueprint $table) {
@@ -37,6 +38,7 @@ class CreateMainTables extends Migration
             $table->text('address')->nullable();
             $table->timestamps();
             $table->softDeletes();
+            $table->engine = 'InnoDB';
         });
 
         Schema::create('stakeholders', function (Blueprint $table) {
@@ -50,6 +52,7 @@ class CreateMainTables extends Migration
             $table->text('address')->nullable();
             $table->timestamps();
             $table->softDeletes();
+            $table->engine = 'InnoDB';
         });
 
         Schema::create('brands', function (Blueprint $table) {
@@ -58,6 +61,7 @@ class CreateMainTables extends Migration
             $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
+            $table->engine = 'InnoDB';
         });
 
         Schema::create('groups', function (Blueprint $table) {
@@ -66,6 +70,7 @@ class CreateMainTables extends Migration
             $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
+            $table->engine = 'InnoDB';
         });
 
         Schema::create('categories', function (Blueprint $table) {
@@ -76,6 +81,7 @@ class CreateMainTables extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->index("parent_id");
+            $table->engine = 'InnoDB';
         });
 
         Schema::create('units', function (Blueprint $table) {
@@ -86,6 +92,7 @@ class CreateMainTables extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->index("code");
+            $table->engine = 'InnoDB';
         });
 
         Schema::create('measures', function (Blueprint $table) {
@@ -96,6 +103,7 @@ class CreateMainTables extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->index("code");
+            $table->engine = 'InnoDB';
         });
 
         Schema::create('banks', function (Blueprint $table) {
@@ -106,6 +114,7 @@ class CreateMainTables extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->index("code");
+            $table->engine = 'InnoDB';
         });
 
     }

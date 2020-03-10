@@ -11,12 +11,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
+use App\Traits\DataTable;
 // Relations
 use App\Models\ProductSize;
 
 class Unit extends Model implements Auditable {
 
     use SoftDeletes,
+        DataTable,
         \OwenIt\Auditing\Auditable;
 
     protected $dates = ['deleted_at'];
@@ -29,6 +31,15 @@ class Unit extends Model implements Auditable {
 
     public function ProductSize() {
         return $this->hasMany(ProductSize::class);
+    }
+
+    public function selectData(){
+        return [
+            'units.code as unit_code',
+            'units.name as unit_name',
+            'units.description as unit_description',
+            'units.id as key_id'
+        ];
     }
 
 }

@@ -11,10 +11,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
+use App\Traits\DataTable;
 
 class StakeHolder extends Model implements Auditable {
     
-    use SoftDeletes, \OwenIt\Auditing\Auditable;
+    use SoftDeletes, DataTable, \OwenIt\Auditing\Auditable;
 
     protected $dates = ['deleted_at'];
     protected $table = 'stakeholders';
@@ -27,5 +28,15 @@ class StakeHolder extends Model implements Auditable {
         'fax_number',
         'address'
     ];
+
+    public function selectData(){
+        return [
+            'stakeholders.name as stakeholder_name',
+            'stakeholders.email as stakeholder_email',
+            'stakeholders.email as stakeholder_phone',
+            'stakeholders.address as stakeholder_address',
+            'stakeholders.id as key_id'
+        ];
+    }
 
 }

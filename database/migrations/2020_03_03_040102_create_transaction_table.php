@@ -38,6 +38,7 @@ class CreateTransactionTable extends Migration
             $table->index("user_id");
             $table->index("customer_id");
             $table->index("supplier_id");
+            $table->engine = 'InnoDB';
         });
 
         Schema::create('transactions_details', function (Blueprint $table) {
@@ -50,6 +51,7 @@ class CreateTransactionTable extends Migration
             $table->index("transaction_id");
             $table->index("product_id");
             $table->primary(['transaction_id','product_id']);
+            $table->engine = 'InnoDB';
         });
 
     }

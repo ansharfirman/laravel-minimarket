@@ -9,8 +9,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\DataTable;
 
 class Audit extends Model{
+
+    use DataTable;
     
     protected $table = 'audits';
     protected $fillable = [
@@ -25,5 +28,20 @@ class Audit extends Model{
         'user_agent',
         'tags'
     ];
+
+    public function selectData(){
+        return [
+            "audits.created_at",
+            "username",
+            "event",
+            "url",
+            "ip_address",
+            "user_agent",
+        ];
+    }
+
+    public function dataTableQuery(){
+        return self::where($this->table.".id", "<>", 0)->join("users", "users.id", "=", "audits.user_id");
+    }
     
 }

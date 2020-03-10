@@ -10,6 +10,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
 use App\Notifications\ResetPassword;
+use App\Traits\DataTable;
 // Relations
 use App\Models\Role;
 use App\Models\Transaction;
@@ -19,6 +20,7 @@ class User extends Authenticatable implements JWTSubject, Auditable {
     use Notifiable,
         SoftDeletes,
         HasRoles,
+        DataTable,
         \OwenIt\Auditing\Auditable;
 
     protected $dates = ['deleted_at'];
@@ -114,6 +116,21 @@ class User extends Authenticatable implements JWTSubject, Auditable {
             }
         }
         return "assets/dist/img/user.png";
+    }
+
+    public function selectData(){
+        return [
+            'users.username as user_username',
+            'users.email as user_email',
+            'users.phone as user_phone',
+            'users.is_confirm as user_is_confirm',
+            'users.id as key_id'
+        ];
+    }
+
+    public function dataTableQuery(){
+        $user = \Auth::user();
+        return self::where($this->table.".id", "!=", $user->id);
     }
 
 }

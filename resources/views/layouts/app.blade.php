@@ -7,18 +7,31 @@
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <meta name="api-token" content={!! json_encode(Auth::guard("api")->tokenById(Auth::User()->id)) !!}>
-              <meta name="base-url" content="{{ url('') }}">
+        <meta name="base-url" content="{{ url('') }}">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <!-- Bootstrap 3.3.5 -->
         <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
         <!-- Font Awesome -->
         <link rel="stylesheet" href="{{ asset('assets/plugins/font-awesome/css/font-awesome.min.css') }}">
         <!-- Ionicons -->
         <link rel="stylesheet" href="{{ asset('assets/plugins/ionicons/css/ionicons.min.css') }}">
+
+        <!-- Other Plugins -->
+        <link rel="stylesheet" href="{{ asset('assets/plugins/jquery-toast/dist/jquery.toast.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/plugins/sweetalert/sweetalert.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/plugins/datepicker/datepicker3.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/plugins/cropper/cropper.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/plugins/cropper/main.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap-fileinput/css/fileinput.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/plugins/datatables/dataTables.bootstrap.css') }}">
+
         <!-- Theme style -->
         <link rel="stylesheet" href="{{ asset('assets/dist/css/AdminLTE.min.css') }}">
         <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
         <link rel="stylesheet" href="{{ asset('assets/dist/css/skins/_all-skins.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/stylesheets/app.core.css') }}?{{ time() }}">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -26,8 +39,9 @@
             <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
             <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+        @yield('stylesheets')
     </head>
-    <body class="hold-transition skin-red sidebar-mini fixed">
+    <body class="hold-transition {{ CommonHelper::getTheme() }} sidebar-mini fixed">
         <!-- Site wrapper -->
         <div class="wrapper">
 
@@ -62,10 +76,27 @@
         <!-- Bootstrap 3.3.5 -->
         <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
         <!-- SlimScroll -->
-        <script src=".{{ asset('assets/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
+        <script src="{{ asset('assets/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
         <!-- FastClick -->
         <script src="{{ asset('assets/plugins/fastclick/fastclick.min.js') }}"></script>
+
+        <!-- Other Plugins -->
+        <script src="{{ asset('assets/plugins/daterangepicker/moment.min.js') }}"></script>
+        <script src="{{ asset('assets/plugins/jquery-toast/dist/jquery.toast.min.js') }}"></script>
+        <script src="{{ asset('assets/plugins/sweetalert/sweetalert.min.js') }}"></script>
+        <script src="{{ asset('assets/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+        <script src="{{ asset('assets/plugins/datepicker/locales/bootstrap-datepicker.id.js') }}"></script>
+        <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+        <script src="{{ asset('assets/plugins/cropper/cropper.min.js') }}"></script>
+        <script src="{{ asset('assets/plugins/cropper/main.js') }}"></script>
+        <script src="{{ asset('assets/plugins/bootstrap-fileinput/js/fileinput.min.js') }}"></script>
+        <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ asset('assets/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+        <script src="{{ asset('assets/plugins/ckeditor/ckeditor.js') }}"></script>
+
         <!-- AdminLTE App -->
         <script src="{{ asset('assets/dist/js/app.min.js') }}"></script>
+        <script src="{{ asset('assets/scripts/app.core.js') }}?{{ time() }}"></script>
+        @yield('scripts')
     </body>
 </html>

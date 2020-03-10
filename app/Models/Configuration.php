@@ -26,4 +26,9 @@ class Configuration extends Model implements Auditable {
         'type'
     ];
 
+    public static function getBySlug($slug){
+        $result = self::where("slug", trim($slug))->first();
+        return !is_null($result) ? $result->content : $slug;
+    }
+
 }

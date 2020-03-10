@@ -32,6 +32,7 @@ class CreateProductsTable extends Migration
             $table->index("category_id");
             $table->index("group_id");
             $table->index("brand_id");
+            $table->engine = 'InnoDB';
         });
 
         Schema::create('products_images', function (Blueprint $table) {
@@ -41,6 +42,7 @@ class CreateProductsTable extends Migration
              $table->boolean('is_primary')->default(0);
              $table->timestamps();
              $table->index("product_id");
+             $table->engine = 'InnoDB';
         });
 
         Schema::create('products_sizes', function (Blueprint $table) {
@@ -54,6 +56,7 @@ class CreateProductsTable extends Migration
              $table->index("product_id");
              $table->index("measure_id");
              $table->index("unit_id");
+             $table->engine = 'InnoDB';
         });
 
         Schema::create('products_discounts', function (Blueprint $table) {
@@ -66,6 +69,7 @@ class CreateProductsTable extends Migration
              $table->index("product_id");
              $table->index("date_start");
              $table->index("date_end");
+             $table->engine = 'InnoDB';
         });
 
     }

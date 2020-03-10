@@ -21,16 +21,20 @@ class CreatePermissionTables extends Migration
             $table->string('name');
             $table->string('guard_name');
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
 
         Schema::create($tableNames['roles'], function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->text('description')->nullable();
             $table->string('guard_name');
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
 
         Schema::create($tableNames['model_has_permissions'], function (Blueprint $table) use ($tableNames, $columnNames) {
+            $table->engine = 'InnoDB';
             $table->unsignedBigInteger('permission_id');
             $table->string('model_type');
             $table->unsignedBigInteger($columnNames['model_morph_key']);
@@ -40,6 +44,7 @@ class CreatePermissionTables extends Migration
         });
 
         Schema::create($tableNames['model_has_roles'], function (Blueprint $table) use ($tableNames, $columnNames) {
+            $table->engine = 'InnoDB';
             $table->unsignedBigInteger('role_id');
             $table->string('model_type');
             $table->unsignedBigInteger($columnNames['model_morph_key']);
@@ -49,6 +54,7 @@ class CreatePermissionTables extends Migration
         });
 
         Schema::create($tableNames['role_has_permissions'], function (Blueprint $table) use ($tableNames) {
+            $table->engine = 'InnoDB';
             $table->unsignedBigInteger('permission_id');
             $table->unsignedBigInteger('role_id');
             $table->primary(['permission_id', 'role_id'], 'role_has_permissions_permission_id_role_id_primary');

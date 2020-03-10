@@ -22,6 +22,7 @@ class CreateConfigTable extends Migration
             $table->integer('type')->default(0);
             $table->timestamps();
             $table->softDeletes();
+            $table->engine = 'InnoDB';
         });
     }
 

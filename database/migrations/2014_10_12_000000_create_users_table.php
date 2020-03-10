@@ -35,6 +35,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->index("session_id");
+            $table->engine = 'InnoDB';
         });
 
         Schema::create('users_confirm', function (Blueprint $table) {
@@ -43,6 +44,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             $table->primary('user_id');
             $table->index("user_id");
+            $table->engine = 'InnoDB';
         });
     }
 

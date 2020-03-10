@@ -234,6 +234,7 @@
             var url = this.$avatarForm.attr('action');
             var data = new FormData(this.$avatarForm[0]);
             var _this = this;
+            headerRequest();
             $.ajax(url, {
                 type: 'post',
                 data: data,
@@ -268,7 +269,7 @@
         },
 
         submitDone: function (data) {
-            console.log(data);
+            //console.log(data);
 
             if ($.isPlainObject(data) && data.state === 200) {
                 if (data.result) {
@@ -305,17 +306,15 @@
             //$("#image-header1").attr('src', "/" + this.url);
             //$("#image-header2").attr('src', "/" + this.url);
 
-            if($(".form-profile-account").length){
-                if($(".img-user").length){
-                    $(".img-user").attr('src', this.url);
-                 }
-            }
+            toastShow({
+                "title": "Upload Success",
+                "message": "You profile picture have been modified !",
+                "mode": "success"
+            });
 
-            if($(".form-company-profile").length){
-                if((".img-company").length){
-                    $(".img-company").attr('src', this.url);
-                }
-            }
+            if($(".img-user").length){
+                $(".img-user").attr('src', this.url);
+             }
 
             this.$avatarForm.get(0).reset();
             this.$avatar.attr('src', this.url);

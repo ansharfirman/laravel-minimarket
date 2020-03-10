@@ -1,6 +1,6 @@
 var BASE_URL = $('meta[name="base-url"]').attr('content');
-var CSRF_NAME = $('meta[name="csrf-token-name"]').attr('content');
-var CSRF_VALUE = $('meta[name="csrf-token-value"]').attr('content');
+var API_TOKEN = $('meta[name="api-token"]').attr('content');
+var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
 moment.locale($("html").attr("lang"));
 
@@ -255,23 +255,31 @@ var ucFirst = function(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+var headerRequest = function() {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'Authorization': 'Bearer ' + API_TOKEN,
+        }
+    });
+}
+
+
 var dataTableRenderButton = function(data, route_crud, data_model, permissions) {
-    let detail = BASE_URL+""+atob(route_crud)+"/detail/"+data.key_id;
-    let edit = BASE_URL+""+atob(route_crud)+"/edit/"+data.key_id;
+    let _permissions = atob(permissions);
+    let permission = JSON.parse(_permissions);
+    let detail = route_crud+"/"+data.key_id;
+    let edit =route_crud+"/"+data.key_id+"/edit";
     let buttons = new Array();
-
-    if(permissions.can_view){
-        buttons.push("<a href='"+detail+"' class='btn btn-sm btn-info btn-detail' data-toggle='tooltip' data-placement='top'  data-original-title='Lihat Detail'><i class='fa fa-search'></i></a>");
+    if(permission.can_view){
+        buttons.push("<a href='"+detail+"' class='btn btn-sm btn-info btn-detail' data-toggle='tooltip' data-placement='top'  data-original-title='Show Record'><i class='fa fa-search'></i></a>");
     }
-
-    if(permissions.can_edit){
-        buttons.push("<a href='"+edit+"' class='btn btn-sm btn-warning btn-edit' data-toggle='tooltip' data-placement='top'  data-original-title='Edit'><i class='fa fa-edit'></i></a>");
+    if(permission.can_edit){
+        buttons.push("<a href='"+edit+"' class='btn btn-sm btn-warning btn-edit' data-toggle='tooltip' data-placement='top'  data-original-title='Edit Record'><i class='fa fa-edit'></i></a>");
     }
-
-    if(permissions.can_delete){
-        buttons.push("<a href='javascript:void(0);' data-id='"+data.key_id+"' data-route="+route_crud+" data-model='"+data_model+"' class='btn btn-sm btn-danger btn-delete' data-toggle='tooltip' data-placement='top'  data-original-title='Hapus'><i class='fa fa-trash'></i></a>");
+    if(permission.can_delete){
+        buttons.push("<a href='javascript:void(0);' data-id='"+data.key_id+"' data-route="+detail+" data-model='"+data_model+"' class='btn btn-sm btn-danger btn-delete' data-toggle='tooltip' data-placement='top'  data-original-title='Delete Record'><i class='fa fa-trash'></i></a>");
     }
-
     return buttons.join("&nbsp;");
 }
 
@@ -282,19 +290,11 @@ var dataTableRender = function(option) {
         'processing': true,
         'serverSide': true,
         'ajax': {
-            'url': BASE_URL + "api/datatable/postdatatable",
+            'url': BASE_URL + "/api/datatable/get/"+option.model,
             'type': 'POST',
-            "data": function(d) {
-                let csrf_name = $('meta[name="csrf-token-name"]').attr('content');
-                let csrf_value = $('meta[name="csrf-token-value"]').attr('content');
-                let model = option.model;
-                let obj = JSON.parse('{ "' + csrf_name + '":"' + csrf_value + '" , "model" : "' + model + '", "route" : "' + option.route_crud + '" }');
-                if (option.additional && option.additional.length > 0) {
-                    option.additional.forEach(function(row) {
-                        obj[row.key] = row.value;
-                    });
-                }
-                return $.extend({}, d, obj);
+            'headers': {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                'Authorization': 'Bearer ' + API_TOKEN,
             }
         },
         'columns': option.columns,
@@ -302,26 +302,11 @@ var dataTableRender = function(option) {
             [option.columns.length - 1, 'desc']
         ],
         "language": {
-            "sEmptyTable": "Tidak ada data yang tersedia pada tabel ini",
-            "sProcessing": "<i class='fa fa-refresh fa-spin'></i>&nbsp;&nbsp;Sedang memuat data...",
-            "sLengthMenu": "Tampilkan _MENU_ entri",
-            "sZeroRecords": "Tidak ditemukan data yang sesuai",
-            "sInfo": "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-            "sInfoEmpty": "Menampilkan 0 sampai 0 dari 0 entri",
-            "sInfoFiltered": "(disaring dari _MAX_ entri keseluruhan)",
-            "sInfoPostFix": "",
-            "sSearch": "Cari:",
-            "sUrl": "",
-            "oPaginate": {
-                "sFirst": "Pertama",
-                "sPrevious": "Sebelumnya",
-                "sNext": "Selanjutnya",
-                "sLast": "Terakhir"
-            }
+            "sProcessing": "<i class='fa fa-refresh fa-spin'></i>&nbsp;&nbsp;Load Data...",
         },
         "initComplete": function(settings, json) {
             $(option.container+'_length select').select2();
-            $(option.container+'_filter input').attr("placeholder", "Keta kunci pencarian").addClass("form-control");
+            $(option.container+'_filter input').attr("placeholder", "Press Enter").addClass("form-control");
             $(option.container+'_filter input').unbind();
             $(option.container+'_filter input').bind('keyup', function(e) {
                 if(e.keyCode == 13) {
@@ -331,82 +316,64 @@ var dataTableRender = function(option) {
         }
     });
 
-   
-
     $("body").on("click", ".btn-delete", function(e) {
         e.preventDefault();
         let id = $(this).attr("data-id");
         let model = $(this).attr("data-model");
         let route = $(this).attr("data-route");
         swal({
-            title: "Konfirmasi",
-            text: "Apakah anda yakin ingin menghapus data ini ?",
+            title: "Are you sure ?",
+            text: "You will not be able to recover this data !",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#f8b32d",
-            confirmButtonText: "Ya",
-            cancelButtonText: "Tidak",
+            confirmButtonText: "Yes",
+            cancelButtonText: "No",
             closeOnConfirm: false
-        }, function() {
-            let csrf_name = $('meta[name="csrf-token-name"]').attr('content');
-            let csrf_value = $('meta[name="csrf-token-value"]').attr('content');
-            let obj = JSON.parse('{ "' + csrf_name + '":"' + csrf_value + '" , "model" : "' + model + '", "id" : "' + id + '", "route" : "'+route+'" }');
-            $.post(BASE_URL + "api/datatable/delete", obj, function(result) {
-                if (result) {
-                    swal.close();
-                    toastShow({
-                        "title": "Berhasil hapus data",
-                        "message": "Data ini berhasil dihapus!.",
-                        "mode": "success"
-                    });
-                    $(option.container).DataTable().ajax.reload();
-                    getNotification();
+        }, function(isConfirm) {
+            if(isConfirm){
+                let data = {
+                    "id" : id,
+                    "model":model
                 }
-            });
+                headerRequest();
+                $.post(BASE_URL + "/api/datatable/delete", data, function(result) {
+                    if(result){
+                        swal.close();
+                        toastShow({
+                            "title": "Record Deleted",
+                            "message": "Success: You have deleted record!.",
+                            "mode": "success"
+                        });
+                        $(option.container).DataTable().ajax.reload();
+                    }
+                });
+            }
         });
         return false;
     });
 
 }
 
-var getNotification = function(){
-    let csrf_name = $('meta[name="csrf-token-name"]').attr('content');
-    let csrf_value = $('meta[name="csrf-token-value"]').attr('content');
-    let obj = JSON.parse('{ "' + csrf_name + '":"' + csrf_value + '" }');
-    $.post(BASE_URL + "api/notification/user_notification", obj, function(result) {
-        if(result){
-            let total = result.total;
-            let data = result.display;
-            $(".notif-count").text(total);
-            if(total > 0){
-                let html = "";
-                data.forEach(function(row){
-                    html += '<li><a href="'+BASE_URL+'account/notification/detail/'+row.id+'"><i class="fa fa-bell text-aqua"></i>'+row.subject+'</a></li>';
-                });
-                $(".notif-menu").html(html);
-                $(".notifications-menu").removeClass("hidden");
-                $(".notif-header").text("Anda memiliki "+total+" pemberitahuan baru");
-            }
-        }
-    });
-}
+
 
 $(document).ready(function(){
 
-    $("#btn-delete-data").click(function(e) {
+    $("#btn-delete").click(function(e) {
         e.preventDefault();
-        let url = $(this).attr("href");
         swal({
-            title: "Konfirmasi",
-            text: "Apakah anda yakin ingin menghapus data ini ?",
+            title: "Are you sure ?",
+            text: "You will not be able to recover this data !",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#f8b32d",
-            confirmButtonText: "Ya",
-            cancelButtonText: "Tidak",
+            confirmButtonText: "Yes",
+            cancelButtonText: "No",
             closeOnConfirm: false
-        }, function() {
-            window.location.href = url;
+        }, function(isConfirm) {
+             if (isConfirm) {
+                $("#delete-form").submit();
+            }
         });
         return false;
     });
@@ -420,7 +387,6 @@ $(document).ready(function(){
             autoclose: true,
             clearBtn: true,
             format: 'yyyy-mm-dd',
-            language: 'id',
             todayBtn: true,
 		    todayHighlight: true,
         });
@@ -479,18 +445,18 @@ $(document).ready(function(){
     }
 
 
-    if ($("#form-submit").length) {
-        $("#form-submit").submit(function(e) {
+    if ($("#form-submit,.form-submit").length) {
+        $("#form-submit,.form-submit").submit(function(e) {
             e.preventDefault();
             let form = this;
             swal({
-                title: "Konfirmasi",
-                text: "Apakah anda yakin ingin menyimpan data ini ?",
+                title: "Confirmation",
+                text: "Are you sure want to submit this form ?",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#f8b32d",
-                confirmButtonText: "Ya",
-                cancelButtonText: "Tidak",
+                confirmButtonText: "Yes",
+                cancelButtonText: "No",
                 closeOnConfirm: false
             }, function() {
                 $(form).unbind('submit').submit();
@@ -504,13 +470,13 @@ $(document).ready(function(){
             e.preventDefault();
             let form = $("#form-profile");
             swal({
-                title: "Konfirmasi",
-                text: "Apakah anda yakin ingin menyimpan data ini ?",
+                title: "Confirmation",
+                text: "Are you sure want to submit this form ?",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#f8b32d",
-                confirmButtonText: "Ya",
-                cancelButtonText: "Tidak",
+                confirmButtonText: "Yes",
+                cancelButtonText: "No",
                 closeOnConfirm: false
             }, function() {
                 $(form).unbind('submit').submit();
@@ -529,16 +495,15 @@ $(document).ready(function(){
 
     /** add active class and stay opened when selected */
     var pageUrl = window.location.href.split(/[?#]/)[0];
-    var createUrl = pageUrl.split("/create");
-    var detailUrl = pageUrl.split("/detail");
-    var editUrl = pageUrl.split("/edit");
+    var breadCumb = $(".breadcrumb li").length;
 
-    if (createUrl.length > 1) {
-        pageUrl = createUrl[0];
-    } else if (detailUrl.length > 1) {
-        pageUrl = detailUrl[0];
-    } else if (editUrl.length > 1) {
-        pageUrl = editUrl[0];
+    if(breadCumb > 3){
+        $(".breadcrumb li a").each(function(){
+            let url = $(this).attr("href");
+            if(url != BASE_URL && url != 'javascript:void(0);'){
+                pageUrl = url;
+            }
+       });
     }
 
     // for sidebar menu entirely but not cover treeview
@@ -546,13 +511,13 @@ $(document).ready(function(){
         return this.href == pageUrl;
     }).parent().addClass('active');
 
-    // for treeview
+    // // for treeview
     $('ul.treeview-menu a').filter(function() {
         return this.href == pageUrl;
     }).parentsUntil(".sidebar-menu > .treeview-menu").addClass('active');
     $("#menu-utama").removeClass("hidden");
-    
-    getNotification();
+    $("html, body, div").removeClass("active");
+  
 
    
 });

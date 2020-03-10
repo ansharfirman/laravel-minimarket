@@ -18,13 +18,13 @@
             <!-- User Account: style can be found in dropdown.less -->
             <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <img src="{{ asset(\Auth::User()->getImageProfile()) }}" class="user-image" alt="User Image">
+                    <img src="{{ asset(\Auth::User()->getImageProfile()) }}" class="user-image img-user" alt="User Image">
                     <span class="hidden-xs">{{ \Auth::User()->getFullname() }}</span>
                 </a>
                 <ul class="dropdown-menu">
                     <!-- User image -->
                     <li class="user-header">
-                        <img src="{{ asset(\Auth::User()->getImageProfile()) }}" class="img-circle" alt="User Image">
+                        <img src="{{ asset(\Auth::User()->getImageProfile()) }}" class="img-circle img-user" alt="User Image">
                         <p>
                             {{ \Auth::User()->getFullname() }} - {{ \Auth::User()->getRolesInfo() }}
                             <small>Member since {{ \Auth::User()->created_at }}</small>

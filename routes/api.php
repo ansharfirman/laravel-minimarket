@@ -13,6 +13,18 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => ['api', 'XSS'], 'prefix' => 'auth'], function ($router) {
+    Route::post('login', '\App\Http\Controllers\Api\AuthController@login');
+    Route::post('logout', '\App\Http\Controllers\Api\AuthController@logout');
+    Route::post('refresh', '\App\Http\Controllers\Api\AuthController@refresh');
+    Route::post('me', '\App\Http\Controllers\Api\AuthController@me');
+});
+
+Route::group(['middleware' => ['jwt.auth', 'XSS']], function() {
+    Route::post('skin/change', '\App\Http\Controllers\Api\SettingController@changeSkin');
+    Route::post('datatable/get/{model}', '\App\Http\Controllers\Api\DataTableController@getDataTable');
+    Route::post('datatable/delete', '\App\Http\Controllers\Api\DataTableController@removeDataTable');
+    Route::group(['prefix' => 'upload'], function () {
+        Route::post('user/profile', '\App\Http\Controllers\Api\UploadController@userProfile')->name("upload.user.profile");
+    });
 });

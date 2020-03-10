@@ -16,9 +16,9 @@
 
 <!-- Main content -->
 <section class="content">
-
+    @include('layouts.alert')
     <!-- Default box -->
-    <div class="box box-danger">
+    <div class="box {{ CommonHelper::getBoxTheme() }}">
         <div class="box-header with-border">
             <h3 class="box-title"><i class="fa fa-edit"></i>&nbsp;Form Profile</h3>
         </div>
