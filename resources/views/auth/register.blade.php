@@ -4,6 +4,8 @@
 
 <div class="register-box-body">
     <p class="login-box-msg">Register a new membership</p>
+    <img src="{{ asset('assets/dist/img/app.png') }}" class="img-responsive center-block" width="120">
+    <h1></h1>
     @include('layouts.alert')
     <form action="{{ route('register') }}" method="post">
         {{ csrf_field() }}
@@ -45,7 +47,7 @@
         </div>
         <div class="row">
             <div class="col-xs-12">
-                <button type="submit" class="btn btn-primary btn-block btn-flat">
+                <button type="submit" class="btn btn-warning btn-block btn-flat">
                     <i class="fa fa-sign-in"></i>&nbsp;Register
                 </button>
             </div><!-- /.col -->

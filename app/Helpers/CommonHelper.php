@@ -36,4 +36,8 @@ class CommonHelper{
         return url("assets/dist/img/no-image.png");
     }
 
+    public static function getOptionCategories($model = null){
+        \App\Models\Category::getTreeCatgeories($model);
+    }
+
 }

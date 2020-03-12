@@ -32,6 +32,7 @@
              folder instead of downloading all of them to reduce the load. -->
         <link rel="stylesheet" href="{{ asset('assets/dist/css/skins/_all-skins.min.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/stylesheets/app.core.css') }}?{{ time() }}">
+        <link rel="icon" type="image/png" href="{{ asset('assets/dist/img/app.png') }}"/>
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -41,7 +42,7 @@
         <![endif]-->
         @yield('stylesheets')
     </head>
-    <body class="hold-transition {{ CommonHelper::getTheme() }} sidebar-mini fixed">
+    <body class="hold-transition {{ CommonHelper::getTheme() }} sidebar-mini sidebar-collapse">
         <!-- Site wrapper -->
         <div class="wrapper">
 

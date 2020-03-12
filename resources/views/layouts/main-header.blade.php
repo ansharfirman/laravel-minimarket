@@ -1,13 +1,13 @@
 <!-- Logo -->
 <a href="{{ url('') }}" class="logo">
     <!-- mini logo for sidebar mini 50x50 pixels -->
-    <span class="logo-mini"><b>APP</b></span>
+    <span class="logo-mini"><b>MINI</b></span>
     <!-- logo for regular state and mobile devices -->
     <span class="logo-lg"><b>{{ env('APP_NAME', 'Laravel') }}</b></span>
 </a>
 <!-- Header Navbar: style can be found in header.less -->
 <nav class="navbar navbar-static-top" role="navigation">
-    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+    <a href="#" class="sidebar-toggle hidden" data-toggle="offcanvas" role="button">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -33,7 +33,7 @@
                     <!-- Menu Footer-->
                     <li class="user-footer">
                         <div class="pull-left">
-                            <a href="#" class="btn btn-default btn-flat" data-toggle='tooltip' data-placement='top'  data-original-title='Edit Profile'>
+                            <a href="{{ route('profiles.index') }}" class="btn btn-default btn-flat" data-toggle='tooltip' data-placement='top'  data-original-title='Edit Profile'>
                                 <i class="fa fa-user-plus"></i>&nbsp;Profile
                             </a>
                         </div>

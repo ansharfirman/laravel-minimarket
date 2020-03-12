@@ -10,6 +10,8 @@
         </div>
     @endif
     <form action="{{ route('password.email') }}" method="post">
+        <img src="{{ asset('assets/dist/img/app.png') }}" class="img-responsive center-block" width="120">
+        <h1></h1>
         @include('layouts.alert')
         {{ csrf_field() }} 
         <div class="form-group has-feedback {{ $errors->has('email') ? ' has-error' : '' }}">
@@ -23,7 +25,7 @@
         </div>
         <div class="row">
             <div class="col-xs-12">
-                <button type="submit" class="btn btn-primary btn-block btn-flat">
+                <button type="submit" class="btn btn-warning btn-block btn-flat">
                     <i class="fa fa-send"></i>&nbsp;Send Password Reset Link
                 </button>
             </div>

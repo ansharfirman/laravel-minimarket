@@ -4,6 +4,8 @@
 
 <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
+    <img src="{{ asset('assets/dist/img/app.png') }}" class="img-responsive center-block" width="120">
+    <h1></h1>
     @include('layouts.alert')
     <form action="{{ route('login') }}" method="post">
         {{ csrf_field() }} 
@@ -34,7 +36,7 @@
                 </div>
             </div><!-- /.col -->
             <div class="col-xs-4">
-                <button type="submit" class="btn btn-primary btn-block btn-flat">
+                <button type="submit" class="btn btn-warning btn-block btn-flat">
                     <i class="fa fa-sign-in"></i>&nbsp;Sign In
                 </button>
             </div><!-- /.col -->

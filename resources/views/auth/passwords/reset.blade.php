@@ -4,6 +4,8 @@
 
 <div class="register-box-body">
     <p class="login-box-msg">Reset Password</p>
+    <img src="{{ asset('assets/dist/img/app.png') }}" class="img-responsive center-block" width="120">
+    <h1></h1>
     @include('layouts.alert')
     <form action="{{ route('password.request') }}" method="post">
         {{ csrf_field() }}
@@ -37,7 +39,7 @@
         </div>
         <div class="row">
             <div class="col-xs-12">
-                <button type="submit" class="btn btn-primary btn-block btn-flat">
+                <button type="submit" class="btn btn-warning btn-block btn-flat">
                     <i class="fa fa-refresh"></i>&nbsp;Reset My Password
                 </button>
             </div><!-- /.col -->

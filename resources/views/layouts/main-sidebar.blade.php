@@ -34,8 +34,8 @@
             </a>
             <ul class="treeview-menu">
                 <li><a href="{{ route('brands.index') }}"><i class="fa fa-circle-o"></i> Brand</a></li>
-                <li><a href="javascript:void(0);"><i class="fa fa-circle-o"></i> Category</a></li>
-                <li><a href="javascript:void(0);"><i class="fa fa-circle-o"></i> Items</a></li>
+                <li><a href="{{ route('categories.index') }}"><i class="fa fa-circle-o"></i> Category</a></li>
+                <li><a href="{{ route('items.index') }}"><i class="fa fa-circle-o"></i> Items</a></li>
                 <li><a href="javascript:void(0);"><i class="fa fa-circle-o"></i> Image</a></li>
                 <li><a href="javascript:void(0);"><i class="fa fa-circle-o"></i> Size</a></li>
                 <li><a href="javascript:void(0);"><i class="fa fa-circle-o"></i> Discount</a></li>

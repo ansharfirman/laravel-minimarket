@@ -286,7 +286,7 @@ var dataTableRenderButton = function(data, route_crud, data_model, permissions) 
 var dataTableRender = function(option) {
 
     var oTable = $(option.container).DataTable({
-        "autoWidth": false,
+        'autoWidth': false,
         'processing': true,
         'serverSide': true,
         'ajax': {

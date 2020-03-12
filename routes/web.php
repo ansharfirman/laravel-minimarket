@@ -46,6 +46,8 @@ Route::group(['middleware' => ['SessionTimeout', 'XSS', 'auth']], function ($rou
 
     Route::group(['prefix' => 'product'], function () {
         Route::resource('brands', '\App\Http\Controllers\Main\Product\BrandController');
+        Route::resource('categories', '\App\Http\Controllers\Main\Product\CategoryController');
+        Route::resource('items', '\App\Http\Controllers\Main\Product\ItemController');
     });
 
     Route::group(['prefix' => 'reference'], function () {
