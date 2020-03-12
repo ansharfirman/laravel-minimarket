@@ -48,6 +48,9 @@ Route::group(['middleware' => ['SessionTimeout', 'XSS', 'auth']], function ($rou
         Route::resource('brands', '\App\Http\Controllers\Main\Product\BrandController');
         Route::resource('categories', '\App\Http\Controllers\Main\Product\CategoryController');
         Route::resource('items', '\App\Http\Controllers\Main\Product\ItemController');
+        Route::resource('product_discounts', '\App\Http\Controllers\Main\Product\ProductDiscountController');
+        Route::resource('product_sizes', '\App\Http\Controllers\Main\Product\ProductSizeController');
+        Route::resource('product_images', '\App\Http\Controllers\Main\Product\ProductImageController');
     });
 
     Route::group(['prefix' => 'reference'], function () {

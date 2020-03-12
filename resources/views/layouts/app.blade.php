@@ -25,6 +25,7 @@
         <link rel="stylesheet" href="{{ asset('assets/plugins/cropper/main.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap-fileinput/css/fileinput.min.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/plugins/datatables/dataTables.bootstrap.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/plugins/iCheck/square/blue.css') }}">
 
         <!-- Theme style -->
         <link rel="stylesheet" href="{{ asset('assets/dist/css/AdminLTE.min.css') }}">
@@ -94,6 +95,7 @@
         <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
         <script src="{{ asset('assets/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
         <script src="{{ asset('assets/plugins/ckeditor/ckeditor.js') }}"></script>
+        <script src="{{ asset('assets/plugins/iCheck/icheck.min.js') }}"></script>
 
         <!-- AdminLTE App -->
         <script src="{{ asset('assets/dist/js/app.min.js') }}"></script>

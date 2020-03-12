@@ -9,17 +9,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\DataTable;
 use OwenIt\Auditing\Contracts\Auditable;
 // Relations
 use App\Models\Product;
 
 class ProductImage extends Model implements Auditable {
 
-    use SoftDeletes,
+    use DataTable,
         \OwenIt\Auditing\Auditable;
 
-    protected $dates = ['deleted_at'];
     protected $table = 'products_images';
     protected $fillable = [
         'product_id',
@@ -29,6 +28,22 @@ class ProductImage extends Model implements Auditable {
 
     public function Product() {
         return $this->belongsTo(Product::class, "product_id");
+    }
+
+    public function selectData(){
+        return [
+            'products_images.path as product_path',
+            'products.sku as product_sku',
+            'products.name as product_name',
+            'products_images.is_primary as product_is_primary',
+            'products_images.id as key_id'
+        ];
+    }
+
+    public function dataTableQuery(){
+        return self::where("products_images.id", "<>", 0)
+            ->join("products", "products.id", "products_images.product_id")
+        ;
     }
 
 }

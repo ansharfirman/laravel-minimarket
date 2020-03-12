@@ -517,6 +517,14 @@ $(document).ready(function(){
     }).parentsUntil(".sidebar-menu > .treeview-menu").addClass('active');
     $("#menu-utama").removeClass("hidden");
     $("html, body, div").removeClass("active");
+
+    if ($(".icheck").length) {
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%' // optional
+        });
+    }
   
 
    
