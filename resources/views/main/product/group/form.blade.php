@@ -37,35 +37,13 @@
         </div>
         {!! Form::model($model, ['method' => isset($model->id) ? 'PATCH' : 'POST','class'=>'form-horizontal','id'=>'form-submit','route' => isset($model->id) ? [$route.'.update', $model->id] : $route.".store" ,'enctype'=>'multipart/form-data']) !!} 
         <div class="box-body">
-            <div class="form-group {{ $errors->has('product_id') ? ' has-error' : '' }}">
-                <label for="" class="col-sm-2 control-label">Product</label>
+            <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
+                <label for="" class="col-sm-2 control-label">Name</label>
                 <div class="col-sm-8">
-                    {!! Form::select('product_id', $products->pluck('name','id'), null, ['id'=>'product_id','class'=>'select2 form-control', 'placeholder'=> '--- Select Product ---']) !!}
-                    @if ($errors->has('product_id'))
+                    <input type="text" class="form-control" id="name" name="name" value="{{ CommonHelper::getVal($model, 'name') }}">
+                    @if ($errors->has('name'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('product_id') }}</strong>
-                        </span>
-                    @endif
-                </div>
-            </div>
-            <div class="form-group {{ $errors->has('unit_id') ? ' has-error' : '' }}">
-                <label for="" class="col-sm-2 control-label">Unit</label>
-                <div class="col-sm-8">
-                    {!! Form::select('unit_id', $units->pluck('name','id'), null, ['id'=>'unit_id','class'=>'select2 form-control', 'placeholder'=> '--- Select Unit ---']) !!}
-                    @if ($errors->has('unit_id'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('unit_id') }}</strong>
-                        </span>
-                    @endif
-                </div>
-            </div>
-            <div class="form-group {{ $errors->has('measure_id') ? ' has-error' : '' }}">
-                <label for="" class="col-sm-2 control-label">Measure</label>
-                <div class="col-sm-8">
-                    {!! Form::select('measure_id', $measures->pluck('name','id'), null, ['id'=>'measure_id','class'=>'select2 form-control', 'placeholder'=> '--- Select Measure ---']) !!}
-                    @if ($errors->has('measure_id'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('measure_id') }}</strong>
+                            <strong>{{ $errors->first('name') }}</strong>
                         </span>
                     @endif
                 </div>

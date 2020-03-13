@@ -11,12 +11,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
+use App\Traits\DataTable;
 // Relations
 use App\Models\Product;
 
 class Group extends  Model implements Auditable {
     
-    use SoftDeletes, \OwenIt\Auditing\Auditable;
+    use SoftDeletes, DataTable, \OwenIt\Auditing\Auditable;
 
     protected $dates = ['deleted_at'];
     protected $table = 'groups';
@@ -27,6 +28,14 @@ class Group extends  Model implements Auditable {
     
     public function Product() {
         return $this->hasMany(Product::class);
+    }
+
+    public function selectData(){
+        return [
+            'groups.name as group_name',
+            'groups.description as group_description',
+            'groups.id as key_id'
+        ];
     }
 
 }

@@ -26,7 +26,6 @@ class ProductSize extends Model implements Auditable {
         'product_id',
         'measure_id',
         'unit_id',
-        'product_value',
         'description'
     ];
 
@@ -48,7 +47,7 @@ class ProductSize extends Model implements Auditable {
             'products.name as product_name',
             'measures.name as measure_name',
             'units.name as unit_name',
-            'products_sizes.product_value as product_value',
+            'products_sizes.description as product_description',
             'products_sizes.id as key_id'
         ];
     }

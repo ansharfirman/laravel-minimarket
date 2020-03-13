@@ -10,7 +10,7 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ url('') }}"><i class="fa fa-home"></i> Home</a></li>
-        <li><a href="#">Product</a></li>
+        <li><a href="#">Transaction</a></li>
         <li class="active">{{ $title }}</li>
     </ol>
 </section>
@@ -37,14 +37,19 @@
             </div>
         </div>
         <div class="box-body">
-        <table class="table table-striped table-responsive" data-permissions="{{ base64_encode(json_encode($permissions)) }}"  data-route-crud="{{ route($route.'.index') }}" data-model="{{ $dataTableModel }}"  id="data-table">
+            <table class="table table-striped table-responsive" data-permissions="{{ base64_encode(json_encode($permissions)) }}"  data-route-crud="{{ route($route.'.index') }}" data-model="{{ $dataTableModel }}"  id="data-table">
                 <thead>
                     <tr>
-                        <th>SKU</th>
-                        <th>Product Name</th>
-                        <th>Measure</th>
-                        <th>Unit</th>
-                        <th>Description</th>
+                        <th>Invoice Date</th>
+                        <th>Invoice Number</th>
+                        <th>Casheir</th>
+                        <th>Stakeholder</th>
+                        <th>Total Items</th>
+                        <th>Subtotal</th>
+                        <th>Discount (%)</th>
+                        <th>Taxes (%)</th>
+                        <th>Grand Total</th>
+                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -56,5 +61,5 @@
 @endsection
 
 @section('scripts')
-<script src="{{ asset('assets/scripts/product.size.js') }}?{{ time() }}"></script>
+<script src="{{ asset('assets/scripts/transaction.fee.js') }}?{{ time() }}"></script>
 @endsection

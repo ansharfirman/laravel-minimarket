@@ -38,21 +38,9 @@
         <div class="box-body">
             <form class="form-horizontal">
                 <div class="form-group">
-                    <label for="" class="col-sm-2 control-label">Product :</label>
+                    <label for="" class="col-sm-2 control-label">Name :</label>
                     <div class="col-sm-10">
-                        <p class ="form-control-static">{{ CommonHelper::getVal($model->Product, 'name') }}</p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="" class="col-sm-2 control-label">Unit :</label>
-                    <div class="col-sm-10">
-                        <p class ="form-control-static">{{ CommonHelper::getVal($model->Unit, 'name') }}</p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="" class="col-sm-2 control-label">Measure :</label>
-                    <div class="col-sm-10">
-                        <p class ="form-control-static">{{ CommonHelper::getVal($model->Measure, 'name') }}</p>
+                        <p class ="form-control-static">{{ CommonHelper::getVal($model, 'name') }}</p>
                     </div>
                 </div>
                 <div class="form-group">

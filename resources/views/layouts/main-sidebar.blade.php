@@ -34,6 +34,7 @@
             </a>
             <ul class="treeview-menu">
                 <li><a href="{{ route('brands.index') }}"><i class="fa fa-circle-o"></i> Brand</a></li>
+                <li><a href="{{ route('groups.index') }}"><i class="fa fa-circle-o"></i> Group</a></li>
                 <li><a href="{{ route('categories.index') }}"><i class="fa fa-circle-o"></i> Category</a></li>
                 <li><a href="{{ route('items.index') }}"><i class="fa fa-circle-o"></i> Items</a></li>
                 <li><a href="{{ route('product_images.index') }}"><i class="fa fa-circle-o"></i> Image</a></li>
@@ -46,9 +47,9 @@
                 <i class="fa fa-money"></i> <span>Transactions</span> <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu">
-                <li><a href="javascript:void(0);"><i class="fa fa-circle-o"></i> Purchase</a></li>
-                <li><a href="javascript:void(0);"><i class="fa fa-circle-o"></i> Sales</a></li>
-                <li><a href="javascript:void(0);"><i class="fa fa-circle-o"></i> Fee</a></li>
+                <li><a href="{{ route('transaction_purchases.index') }}"><i class="fa fa-circle-o"></i> Purchase</a></li>
+                <li><a href="{{ route('transaction_sales.index') }}"><i class="fa fa-circle-o"></i> Sales</a></li>
+                <li><a href="{{ route('transaction_fees.index') }}"><i class="fa fa-circle-o"></i> Fee</a></li>
             </ul>
         </li>
         <li class="treeview">

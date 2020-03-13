@@ -7,28 +7,16 @@ $(document).ready(function(){
 
     let dataTableColumns = [
         {
-            data: 'product_sku',
-            name: 'products.sku'
+            data: 'group_name',
+            name: 'groups.name'
         },
         {
-            data: 'product_name',
-            name: 'products.name'
-        },
-        {
-            data: 'measure_name',
-            name: 'measures.name',
-        },
-        {
-            data: 'unit_name',
-            name: 'units.name'
-        },
-        {
-            data: 'product_description',
-            name: 'products_sizes.description'
+            data: 'group_description',
+            name: 'groups.description'
         },
         {
             data: 'key_id',
-            name: 'products_sizes.id',
+            name: 'groups.id',
             orderable: false,
             searchable: false,
             render: function(data, type, row, meta) {
@@ -43,7 +31,5 @@ $(document).ready(function(){
         "columns": dataTableColumns,
         "model": data_model
     });
-
-    
 
 });

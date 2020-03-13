@@ -40,10 +40,7 @@
         <table class="table table-striped table-responsive" data-permissions="{{ base64_encode(json_encode($permissions)) }}"  data-route-crud="{{ route($route.'.index') }}" data-model="{{ $dataTableModel }}"  id="data-table">
                 <thead>
                     <tr>
-                        <th>SKU</th>
-                        <th>Product Name</th>
-                        <th>Measure</th>
-                        <th>Unit</th>
+                        <th>Group Name</th>
                         <th>Description</th>
                         <th>Action</th>
                     </tr>
@@ -56,5 +53,5 @@
 @endsection
 
 @section('scripts')
-<script src="{{ asset('assets/scripts/product.size.js') }}?{{ time() }}"></script>
+<script src="{{ asset('assets/scripts/product.group.js') }}?{{ time() }}"></script>
 @endsection

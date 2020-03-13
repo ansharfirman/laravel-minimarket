@@ -51,3 +51,8 @@
 }
 
 .select2-container{ width: 100% !important; }
+
+#product-detail-section{
+    border: 1px solid #eee !important;
+    padding: 10px !important;
+}

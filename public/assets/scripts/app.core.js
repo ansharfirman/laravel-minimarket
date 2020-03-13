@@ -285,12 +285,18 @@ var dataTableRenderButton = function(data, route_crud, data_model, permissions) 
 
 var dataTableRender = function(option) {
 
+    var defaultUrl = BASE_URL + "/api/datatable/get/"+option.model;
+
+    if(option.customUrl){
+        defaultUrl = option.customUrl;
+    }
+
     var oTable = $(option.container).DataTable({
         'autoWidth': false,
         'processing': true,
         'serverSide': true,
         'ajax': {
-            'url': BASE_URL + "/api/datatable/get/"+option.model,
+            'url': defaultUrl,
             'type': 'POST',
             'headers': {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),

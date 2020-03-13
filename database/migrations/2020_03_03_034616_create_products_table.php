@@ -49,8 +49,7 @@ class CreateProductsTable extends Migration
              $table->bigIncrements('id');
              $table->unsignedBigInteger('product_id');
              $table->unsignedBigInteger('measure_id'); 
-             $table->unsignedBigInteger('unit_id');
-             $table->float('product_value')->default(0);   
+             $table->unsignedBigInteger('unit_id');  
              $table->text('description')->nullable();  
              $table->timestamps();
              $table->index("product_id");

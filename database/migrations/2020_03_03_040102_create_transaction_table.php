@@ -19,6 +19,7 @@ class CreateTransactionTable extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('customer_id')->nullable();
             $table->unsignedBigInteger('supplier_id')->nullable();
+            $table->unsignedBigInteger('stakeholder_id')->nullable();
             $table->boolean('is_purchased')->default(0);
             $table->integer('type')->default(0);
             $table->date('invoice_date')->nullable();
@@ -38,6 +39,7 @@ class CreateTransactionTable extends Migration
             $table->index("user_id");
             $table->index("customer_id");
             $table->index("supplier_id");
+            $table->index("stakeholder_id");
             $table->engine = 'InnoDB';
         });
 

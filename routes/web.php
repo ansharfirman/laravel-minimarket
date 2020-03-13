@@ -46,6 +46,7 @@ Route::group(['middleware' => ['SessionTimeout', 'XSS', 'auth']], function ($rou
 
     Route::group(['prefix' => 'product'], function () {
         Route::resource('brands', '\App\Http\Controllers\Main\Product\BrandController');
+        Route::resource('groups', '\App\Http\Controllers\Main\Product\GroupController');
         Route::resource('categories', '\App\Http\Controllers\Main\Product\CategoryController');
         Route::resource('items', '\App\Http\Controllers\Main\Product\ItemController');
         Route::resource('product_discounts', '\App\Http\Controllers\Main\Product\ProductDiscountController');
@@ -60,6 +61,12 @@ Route::group(['middleware' => ['SessionTimeout', 'XSS', 'auth']], function ($rou
         Route::resource('stakeholders', '\App\Http\Controllers\Main\Reference\StakeHolderController');
         Route::resource('suppliers', '\App\Http\Controllers\Main\Reference\SupplierController');
         Route::resource('units', '\App\Http\Controllers\Main\Reference\UnitController');
+    });
+
+    Route::group(['prefix' => 'transaction'], function () {
+        Route::resource('transaction_sales', '\App\Http\Controllers\Main\Transaction\SaleController');
+        Route::resource('transaction_purchases', '\App\Http\Controllers\Main\Transaction\PurchaseController');
+        Route::resource('transaction_fees', '\App\Http\Controllers\Main\Transaction\FeeController');
     });
 
     Route::group(['prefix' => 'setting'], function () {

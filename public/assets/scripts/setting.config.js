@@ -140,7 +140,7 @@ $(document).ready(function () {
         e.preventDefault();
         let skin = $(this).attr("data-skin");
         let box = $(this).attr("data-box");
-        $("body").attr("class", "hold-transition sidebar-mini fixed "+skin);
+        $("body").attr("class", "hold-transition sidebar-mini sidebar-collapse "+skin);
         $(".box").attr("class", "box "+box);
 
         let data = {
