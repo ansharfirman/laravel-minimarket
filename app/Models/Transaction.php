@@ -20,6 +20,7 @@ use App\Models\Customer;
 use App\Models\Supplier;
 use App\Models\StakeHolder;
 use App\Models\TransactionDetail;
+use App\Models\TransactionFeeDetails;
 
 class Transaction extends Model implements Auditable {
 
@@ -73,6 +74,10 @@ class Transaction extends Model implements Auditable {
     
     public function TransactionDetail() {
         return $this->hasMany(TransactionDetail::class);
+    }
+
+    public function TransactionFeeDetails(){
+        return $this->hasMany(TransactionFeeDetails::class);
     }
 
     public static function createInvoiceNumber($type, $code){

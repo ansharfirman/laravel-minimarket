@@ -13,7 +13,7 @@
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu hidden" id="menu-utama">
         <li class="header">MAIN NAVIGATION</li>
-        <li><a href="javascript:void(0);"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+        <li><a href="{{ route('dashboards.index') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
         <li><a href="{{ route('profiles.index') }}"><i class="fa fa-user-plus"></i> <span>Profile</span></a></li>
         <li class="treeview">
             <a href="#">

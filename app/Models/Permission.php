@@ -7,21 +7,36 @@ class Permission extends \Spatie\Permission\Models\Permission {
     public static function defaultPermissions() {
         $result = array();
         $modules = [
-            "audits",
-            "banks",
-            "categories",
-            "settings",
-            "customers",
-            "groups",
-            "measures",
-            "products",
-            "roles",
-            "stakeholders",
-            "suppliers",
-            "sales",
-            "purchases",
-            "units",
-            "users",
+           // Dashboard
+           "dashboards",
+           // References
+           "banks",
+           "customers",
+           "measures",
+           "stakeholders",
+           "suppliers",
+           "units",
+           // Products
+           "brands",
+           "groups",
+           "categories",
+           "items",
+           "product_images",
+           "product_sizes",
+           "product_discounts",
+           // Transactions
+           "transaction_sales",
+           "transaction_purchases",
+           "transaction_fees",
+           // Reports
+           "report_sales",
+           "report_purchases",
+           "report_fees",
+           // Settings
+           "audits",
+           "settings",
+           "users",
+           "audits",
         ];
         asort($modules);
         $actions = ["view", "add", "edit", "delete"];

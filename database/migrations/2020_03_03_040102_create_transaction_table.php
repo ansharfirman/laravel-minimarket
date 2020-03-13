@@ -56,6 +56,16 @@ class CreateTransactionTable extends Migration
             $table->engine = 'InnoDB';
         });
 
+        Schema::create('transactions_fee_details', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('transaction_id');
+            $table->text('description')->nullable();
+            $table->float('total')->default(0);
+            $table->timestamps();
+            $table->index("transaction_id");
+            $table->engine = 'InnoDB';
+        });
+
     }
 
     /**
@@ -67,5 +77,6 @@ class CreateTransactionTable extends Migration
     {
         Schema::dropIfExists('transactions');
         Schema::dropIfExists('transactions_details');
+        Schema::dropIfExists('transactions_fee_details');
     }
 }
