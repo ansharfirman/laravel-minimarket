@@ -17,25 +17,37 @@
     <div class="box-body">
        <form>
             <div class="row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                     <label for="">Filter By Category</label>
                     <select name="category_id" id="category_id" class="form-control select2">
                         <option disabled selected>-- Select Category ---</option>
                         {{ CommonHelper::getOptionCategories() }}
                     </select>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                     <label for="">Filter By Brand</label>
                     {!! Form::select('brand_id', $brands->pluck('name','id'), null, ['id'=>'brand_id','class'=>'select2 form-control', 'placeholder'=> '--- Select Brand ---']) !!}
                 </div>
-                <div class="form-group col-md-4">
+                <div class="clearfix"></div>
+                <div class="form-group col-md-6">
                     <label for="">Filter By Group</label>
                     {!! Form::select('group_id', $groups->pluck('name','id'), null, ['id'=>'group_id','class'=>'select2 form-control', 'placeholder'=> '--- Select Group ---']) !!}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="">Filter By Keyword</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
        </form>
        <h1></h1>
-       <div id="product-detail-section">
+       <div id="product-detail-section" >
            @for($i = 1; $i <=100; $i++)
               <div class="row">
                @for($j = 1; $j <= 4; $j++)

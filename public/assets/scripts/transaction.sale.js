@@ -1,21 +1,3 @@
-let invoice = {
-
-    "init" :  function(){
-
-        var neg = $('.main-header').outerHeight() + $('.main-footer').outerHeight();
-        var window_height = $(window).height();
-        var sidebar_height = $(".sidebar").height();
-        
-        $("#product-detail-section").slimscroll({
-            height: (window_height - neg) + "px",
-            color: "rgba(0,0,0,0.2)",
-            size: "3px"
-        });
-
-    },
-
-}
-
 $(document).ready(function(){
    
     let tp = 1;
@@ -114,11 +96,5 @@ $(document).ready(function(){
         "columns": dataTableColumns,
         "model": data_model
     });
-
-    if($("#invoice-content").length){
-        invoice.init();
-    }
-
-    
-
 });
+

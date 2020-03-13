@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('title') {{ $title }} @endsection
+
+
+
 @section('content')
 
 <!-- Content Header (Page header) -->
@@ -32,5 +35,5 @@
 @endsection
 
 @section('scripts')
-<script src="{{ asset('assets/scripts/transaction.sale.js') }}?{{ time() }}"></script>
+<script src="{{ asset('assets/scripts/transaction.sale.form.js') }}?{{ time() }}"></script>
 @endsection

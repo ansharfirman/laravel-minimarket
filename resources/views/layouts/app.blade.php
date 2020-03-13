@@ -98,7 +98,11 @@
         <script src="{{ asset('assets/plugins/iCheck/icheck.min.js') }}"></script>
 
         <!-- AdminLTE App -->
+        @if(env('production'))
         <script src="{{ asset('assets/dist/js/app.min.js') }}"></script>
+        @else
+        <script src="{{ asset('assets/dist/js/app.js') }}"></script>
+        @endif
         <script src="{{ asset('assets/scripts/app.core.js') }}?{{ time() }}"></script>
         @yield('scripts')
     </body>
