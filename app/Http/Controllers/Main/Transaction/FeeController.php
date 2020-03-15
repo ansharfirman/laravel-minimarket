@@ -21,45 +21,39 @@ class FeeController extends MainController{
         $this->dataTableModel = base64_encode(Transaction::class);
     }
 
-    public function create(){
-        $invoice_number = Transaction::createInvoiceNumber(self::TYPE, self::CODE);
-        $invoice_date = date("Y-m-d");
-        $user_id = \Auth::user()->id;
-        $data = array(
-            'user_id'=> $user_id,
-            'is_purchased'=> 0,
-            'type'=> self::TYPE,
-            'invoice_date'=> $invoice_date,
-            'invoice_number'=> $invoice_number,
-            'total_items'=> 0,
-            'subtotal'=> 0,
-            'tax'=> 0,
-            'discount'=> 0,
-            'grandtotal'=> 0,
-            'cash'=> 0,
-            'change'=> 0
-        );
-        $transaction = Transaction::create($data);
-        return redirect()->route($this->route.".edit", ["id"=>$transaction->id]);
+    protected function createValidation(){
+        return [
+            'stakeholder_id' => 'required',
+            'invoice_date' => 'required',
+            'invoice_number' => 'required|unique:transactions',
+            'grandtotal' => 'required',
+        ];
     }
 
-    public function edit($id){
+    protected function updateValidation($id){
+        return [
+            'stakeholder_id' => 'required',
+            'invoice_date' => 'required',
+            'invoice_number' => 'required|unique:transactions,invoice_number,' . $id,
+            'grandtotal' => 'required',
+        ];
+    }
 
-        $model = $this->model->where("id", $id)
-            ->where("type", self::TYPE)
-            ->where("is_purchased", 0)
-            ->first();
-
-        if(is_null($model)){
-            return abort(404);  
-        }
-
+    public function create(){
+        $model = array(
+            "invoice_number"=> Transaction::createInvoiceNumber(self::TYPE, self::CODE)
+        );
+        $this->data["stakeholders"] = Stakeholder::orderBy("name", "ASC")->get();
+        $this->data["model"] = (object) $model;
         $this->data["title"] = $this->title;
         $this->data["subtitle"] = $this->subtitle;
-        $this->data["model"] = $model;
-        $this->data["stakeholders"] = Stakeholder::orderBy("name", "ASC")->get();
         $this->data["route"] = $this->route;
         return $this->__render__page($this->layout.".form", $this->data);
+     }
+ 
+    public function edit($id){
+         $this->data["stakeholders"] = Stakeholder::orderBy("name", "ASC")->get();
+         return parent::edit($id);
     }
-
+    
 }

@@ -5,7 +5,7 @@ namespace App\Helpers;
 class CommonHelper{
 
     public static function getVal($model, $value){
-        return isset($model->$value) ? $model->$value : null;
+        return isset($model->$value) ? $model->$value : (old($value) ? old($value) : null);
     }
 
     public static function getConfig($slug){

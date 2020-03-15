@@ -116,6 +116,8 @@ class Transaction extends Model implements Auditable {
             'transactions.id as key_id',
             'users.first_name as first_name',
             'users.last_name as last_name',
+            'transactions.notes as t_notes',
+            'transactions.description as t_description',
         ];
     }
 

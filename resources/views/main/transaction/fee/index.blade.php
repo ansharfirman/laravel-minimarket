@@ -44,12 +44,9 @@
                         <th>Invoice Number</th>
                         <th>Casheir</th>
                         <th>Stakeholder</th>
-                        <th>Total Items</th>
-                        <th>Subtotal</th>
-                        <th>Discount (%)</th>
-                        <th>Taxes (%)</th>
-                        <th>Grand Total</th>
-                        <th>Status</th>
+                        <th>Notes</th>
+                        <th>Description</th>
+                        <th>Total Paid</th>
                         <th>Action</th>
                     </tr>
                 </thead>
