@@ -18,9 +18,9 @@ use App\Models\Bank;
 use App\Models\User;
 use App\Models\Customer;
 use App\Models\Supplier;
+use App\Models\Product;
 use App\Models\StakeHolder;
 use App\Models\TransactionDetail;
-use App\Models\TransactionFeeDetails;
 
 class Transaction extends Model implements Auditable {
 
@@ -39,6 +39,7 @@ class Transaction extends Model implements Auditable {
         'stakeholder_id',
         'is_purchased',
         'type',
+        'creditcard_number',
         'invoice_date',
         'invoice_number',
         'total_items',
@@ -60,6 +61,10 @@ class Transaction extends Model implements Auditable {
         return $this->belongsTo(User::class, "user_id");
     }
 
+    public function Casheir() {
+        return $this->belongsTo(User::class, "user_id");
+    }
+
     public function Customer() {
         return $this->belongsTo(Customer::class, "customer_id");
     }
@@ -76,9 +81,7 @@ class Transaction extends Model implements Auditable {
         return $this->hasMany(TransactionDetail::class);
     }
 
-    public function TransactionFeeDetails(){
-        return $this->hasMany(TransactionFeeDetails::class);
-    }
+  
 
     public static function createInvoiceNumber($type, $code){
         $sql = "SELECT MAX(invoice_number) as max_number FROM transactions WHERE type = ".$type." AND invoice_date <=  DATE(now())";
@@ -98,7 +101,7 @@ class Transaction extends Model implements Auditable {
 
     public function selectData(){
         return [
-            'transactions.invoice_date as invoice_date',
+            'transactions.created_at as created_at',
             'transactions.invoice_number as invoice_number',
             'users.username as username',
             'customers.name as customer_name',
@@ -110,7 +113,9 @@ class Transaction extends Model implements Auditable {
             'transactions.discount as discount',
             'transactions.grandtotal as grandtotal',
             'transactions.is_purchased as is_purchased',
-            'transactions.id as key_id'
+            'transactions.id as key_id',
+            'users.first_name as first_name',
+            'users.last_name as last_name',
         ];
     }
 
@@ -123,6 +128,103 @@ class Transaction extends Model implements Auditable {
             ->leftJoin("suppliers", "suppliers.id", "transactions.supplier_id")
             ->leftJoin("stakeholders", "stakeholders.id", "transactions.stakeholder_id")
         ;
+    }
+
+    public static function saveInvoice($type, $id, $inv){
+
+        $invoice = json_decode(base64_decode($inv));
+        TransactionDetail::where("transaction_id", $id)->delete();
+
+        $transaction = $invoice->transaction;
+        $details = $invoice->details;
+
+        $tr = self::where("id", $id)->first();
+        $tr->subtotal = $transaction->subtotal;
+        $tr->discount = $transaction->discount;
+        $tr->tax = $transaction->tax;
+        $tr->notes = isset($transaction->notes) ? $transaction->notes : null;
+        $tr->grandtotal = $transaction->grandtotal;
+        if(is_null($transaction->bank_id)){
+            $tr->cash = $transaction->cash;
+            $tr->change = $transaction->change;
+            $tr->bank_id = null;
+            $tr->creditcard_number = null;
+        }else{
+            $tr->cash = 0;
+            $tr->change = 0;
+            $tr->bank_id = $transaction->bank_id;
+            $tr->creditcard_number = $transaction->creditcard_number;
+        }
+
+        if((int) $type == 1){
+            if(isset($transaction->customer_id)){
+                $tr->customer_id = $transaction->customer_id;
+                $tr->supplier_id = null;
+                $tr->stakeholder_id =  null;
+            }else{
+                $tr->customer_id = null;
+                $tr->supplier_id = null;
+                $tr->stakeholder_id =  null;
+            }
+        }
+
+        if((int) $type == 2){
+            if(isset($transaction->supplier_id)){
+                $tr->customer_id = null;
+                $tr->supplier_id = $transaction->supplier_id;
+                $tr->stakeholder_id =  null;
+            }else{
+                $tr->customer_id = null;
+                $tr->supplier_id = null;
+                $tr->stakeholder_id =  null;
+            }
+        }
+
+        if((int) $type == 3){
+            if(isset($transaction->stakeholder_id)){
+                $tr->customer_id = null;
+                $tr->supplier_id = null;
+                $tr->stakeholder_id =  $transaction->stakeholder_id;
+            }else{
+                $tr->customer_id = null;
+                $tr->supplier_id = null;
+                $tr->stakeholder_id =  null;
+            }
+        }
+
+        $tr->save();
+        
+        $total_items = 0;
+        if(count($details) > 0){
+            if((int) $type == 1 || (int) $type == 2){
+                foreach($details as $row){
+                    TransactionDetail::create([
+                        'transaction_id'=> $id,
+                        'product_id'=> $row->product_id,
+                        'price'=> $row->price,
+                        'qty'=> $row->qty,
+                        'total'=> $row->total
+                    ]);
+                    $total_items += $row->qty;
+                    // Sales
+                    if((int) $type == 1){
+                        $pr = Product::where("id", $row->product_id)->first();
+                        $pr->stock = $pr->stock - $row->qty;
+                        $pr->save();
+                    }
+                    // Purchases
+                    if((int) $type == 2){
+                        $pr = Product::where("id", $row->product_id)->first();
+                        $pr->stock = $pr->stock + $row->qty;
+                        $pr->save();
+                    }
+                }
+            }else{
+                // Fee
+            }
+        }
+
+        return self::where("id", $id)->update(["total_items" => $total_items, "is_purchased" => 1]);
     }
 
 

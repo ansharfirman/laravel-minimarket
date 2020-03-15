@@ -22,10 +22,8 @@
             <ul class="treeview-menu">
                 <li><a href="{{ route('banks.index') }}"><i class="fa fa-circle-o"></i> Bank</a></li>
                 <li><a href="{{ route('customers.index') }}"><i class="fa fa-circle-o"></i> Customer</a></li>
-                <li><a href="{{ route('measures.index') }}"><i class="fa fa-circle-o"></i> Measure</a></li>
                 <li><a href="{{ route('stakeholders.index') }}"><i class="fa fa-circle-o"></i> Stakeholder</a></li>
                 <li><a href="{{ route('suppliers.index') }}"><i class="fa fa-circle-o"></i> Supplier</a></li>
-                <li><a href="{{ route('units.index') }}"><i class="fa fa-circle-o"></i> Unit</a></li>
             </ul>
         </li>
         <li class="treeview">
@@ -38,8 +36,6 @@
                 <li><a href="{{ route('categories.index') }}"><i class="fa fa-circle-o"></i> Category</a></li>
                 <li><a href="{{ route('items.index') }}"><i class="fa fa-circle-o"></i> Items</a></li>
                 <li><a href="{{ route('product_images.index') }}"><i class="fa fa-circle-o"></i> Image</a></li>
-                <li><a href="{{ route('product_sizes.index') }}"><i class="fa fa-circle-o"></i> Size</a></li>
-                <li><a href="{{ route('product_discounts.index') }}"><i class="fa fa-circle-o"></i> Discount</a></li>
             </ul>
         </li>
         <li class="treeview">

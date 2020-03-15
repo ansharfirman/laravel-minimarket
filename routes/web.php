@@ -49,25 +49,25 @@ Route::group(['middleware' => ['SessionTimeout', 'XSS', 'auth']], function ($rou
         Route::resource('groups', '\App\Http\Controllers\Main\Product\GroupController');
         Route::resource('categories', '\App\Http\Controllers\Main\Product\CategoryController');
         Route::resource('items', '\App\Http\Controllers\Main\Product\ItemController');
-        Route::resource('product_discounts', '\App\Http\Controllers\Main\Product\ProductDiscountController');
-        Route::resource('product_sizes', '\App\Http\Controllers\Main\Product\ProductSizeController');
         Route::resource('product_images', '\App\Http\Controllers\Main\Product\ProductImageController');
     });
 
     Route::group(['prefix' => 'reference'], function () {
         Route::resource('banks', '\App\Http\Controllers\Main\Reference\BankController');
         Route::resource('customers', '\App\Http\Controllers\Main\Reference\CustomerController');
-        Route::resource('measures', '\App\Http\Controllers\Main\Reference\MeasureController');
         Route::resource('stakeholders', '\App\Http\Controllers\Main\Reference\StakeHolderController');
         Route::resource('suppliers', '\App\Http\Controllers\Main\Reference\SupplierController');
-        Route::resource('units', '\App\Http\Controllers\Main\Reference\UnitController');
     });
 
     Route::group(['prefix' => 'transaction'], function () {
         Route::resource('transaction_sales', '\App\Http\Controllers\Main\Transaction\SaleController');
         Route::resource('transaction_purchases', '\App\Http\Controllers\Main\Transaction\PurchaseController');
         Route::resource('transaction_fees', '\App\Http\Controllers\Main\Transaction\FeeController');
+        Route::get('invoice/{id}/{collections}', '\App\Http\Controllers\Main\Transaction\InvoiceController@preview')->name("invoice.preview");
+        Route::get('invoice_loader', '\App\Http\Controllers\Main\Transaction\InvoiceController@previewLoader')->name("invoice.loader");
     });
+
+    
 
     Route::group(['prefix' => 'setting'], function () {
         Route::resource('settings', '\App\Http\Controllers\Main\Setting\SettingController');

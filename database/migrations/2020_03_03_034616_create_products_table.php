@@ -21,8 +21,8 @@ class CreateProductsTable extends Migration
             $table->string('sku')->unique();
             $table->string('name');
             $table->decimal('price_profit')->default(0);
-            $table->float('price_purchase')->default(0);
-            $table->float('price_sale')->default(0);
+            $table->double('price_purchase', 19, 2)->default(0);
+            $table->double('price_sale', 19, 2)->default(0);
             $table->integer('stock')->default(0);
             $table->date('date_expired')->nullable();
             $table->text('notes')->nullable();
@@ -44,33 +44,6 @@ class CreateProductsTable extends Migration
              $table->index("product_id");
              $table->engine = 'InnoDB';
         });
-
-        Schema::create('products_sizes', function (Blueprint $table) {
-             $table->bigIncrements('id');
-             $table->unsignedBigInteger('product_id');
-             $table->unsignedBigInteger('measure_id'); 
-             $table->unsignedBigInteger('unit_id');  
-             $table->text('description')->nullable();  
-             $table->timestamps();
-             $table->index("product_id");
-             $table->index("measure_id");
-             $table->index("unit_id");
-             $table->engine = 'InnoDB';
-        });
-
-        Schema::create('products_discounts', function (Blueprint $table) {
-             $table->bigIncrements('id');
-             $table->unsignedBigInteger('product_id');
-             $table->decimal('product_value')->default(0); 
-             $table->date('date_start')->nullable();
-             $table->date('date_end')->nullable();    
-             $table->timestamps();
-             $table->index("product_id");
-             $table->index("date_start");
-             $table->index("date_end");
-             $table->engine = 'InnoDB';
-        });
-
     }
 
     /**
@@ -82,7 +55,5 @@ class CreateProductsTable extends Migration
     {
         Schema::dropIfExists('products');
         Schema::dropIfExists('products_images');
-        Schema::dropIfExists('products_sizes');
-        Schema::dropIfExists('products_discounts');
     }
 }

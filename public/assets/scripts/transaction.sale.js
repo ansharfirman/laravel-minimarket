@@ -8,8 +8,8 @@ $(document).ready(function(){
 
     let dataTableColumns = [
         {
-            data: 'invoice_date',
-            name: 'transactions.invoice_date'
+            data: 'created_at',
+            name: 'transactions.created_at'
         },
         {
             data: 'invoice_number',
@@ -17,7 +17,16 @@ $(document).ready(function(){
         },
         {
             data: 'username',
-            name: 'users.username'
+            name: 'users.username',
+            render: function(data, type, row, meta) {
+                let fullName = row.first_name+" "+row.last_name;
+                let username = row.username;
+                if(fullName.length > 0){
+                    return fullName;
+                }else{
+                    return username;
+                }
+            }
         },
         {
             data: 'customer_name',
@@ -75,7 +84,7 @@ $(document).ready(function(){
                 let detail = route_crud+"/"+row.key_id;
                 let edit = route_crud+"/"+row.key_id+"/edit";
                 let buttons = new Array();
-                if(permission.can_view && status == 1){
+                if(permission.can_view){
                     buttons.push("<a href='"+detail+"' class='btn btn-sm btn-info btn-detail' data-toggle='tooltip' data-placement='top'  data-original-title='Show Record'><i class='fa fa-search'></i></a>");
                 }
                 if(permission.can_edit && status == 0){

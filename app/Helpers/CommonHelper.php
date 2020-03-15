@@ -22,10 +22,11 @@ class CommonHelper{
 
     public static function getBoxTheme(){
         $box = \App\Models\Configuration::getBySlug("app-box");
+        $theme = \App\Models\Configuration::getBySlug("app-theme");
         if($box != 'app-box'){
             return $box;
         }
-        return "box-default";
+        return $theme == "app-theme" ? "box-primary" : "box-default";
     }
 
     public static function getCompanyLogo(){
@@ -38,6 +39,15 @@ class CommonHelper{
 
     public static function getOptionCategories($model = null){
         \App\Models\Category::getTreeCatgeories($model);
+    }
+
+    public static function getFullNameUser($id){
+        $user = \App\Models\User::where("id", $id)->first();
+        if(!is_null($user)){
+            return $user->getFullname();
+        }else{
+            return "Unknown";
+        }
     }
 
 }

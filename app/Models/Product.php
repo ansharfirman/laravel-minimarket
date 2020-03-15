@@ -16,9 +16,7 @@ use App\Traits\DataTable;
 use App\Models\Category;
 use App\Models\Group;
 use App\Models\Brand;
-use App\Models\ProductDiscount;
 use App\Models\ProductImage;
-use App\Models\ProductSize;
 use App\Models\TransactionDetail;
 
 class Product extends Model implements Auditable {
@@ -56,16 +54,8 @@ class Product extends Model implements Auditable {
         return $this->belongsTo(Group::class, "group_id");
     }
 
-    public function ProductDiscount() {
-        return $this->hasMany(ProductDiscount::class);
-    }
-
     public function ProductImage() {
         return $this->hasMany(ProductImage::class);
-    }
-
-    public function ProductSize() {
-        return $this->hasMany(ProductSize::class);
     }
 
     public function TransactionDetail() {

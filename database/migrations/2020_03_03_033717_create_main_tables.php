@@ -84,28 +84,6 @@ class CreateMainTables extends Migration
             $table->engine = 'InnoDB';
         });
 
-        Schema::create('units', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('code');
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
-            $table->index("code");
-            $table->engine = 'InnoDB';
-        });
-
-        Schema::create('measures', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('code');
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
-            $table->index("code");
-            $table->engine = 'InnoDB';
-        });
-
         Schema::create('banks', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('code');
@@ -132,8 +110,6 @@ class CreateMainTables extends Migration
         Schema::dropIfExists('brands');
         Schema::dropIfExists('groups');
         Schema::dropIfExists('categories');
-        Schema::dropIfExists('units');
-        Schema::dropIfExists('measures');
         Schema::dropIfExists('banks');
     }
 }

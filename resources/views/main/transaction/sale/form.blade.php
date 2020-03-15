@@ -23,13 +23,19 @@
 <section class="content">
     @include('layouts.alert')
     <div class="row" id="invoice-content">
-        <div class="col-md-6">
+        <div class="col-md-5">
             @include('main.transaction.sale.form-product')
         </div>
-        <div class="col-md-6">
+        <div class="col-md-7">
             @include('main.transaction.sale.form-billing')
         </div>
     </div>
+
+    {!! Form::model($model, ['method' => isset($model->id) ? 'PATCH' : 'POST','class'=>'form-horizontal','id'=>'form-submit-invoice','route' => isset($model->id) ? [$route.'.update', $model->id] : $route.".store" ,'enctype'=>'multipart/form-data']) !!} 
+        <input type="hidden" name="data-invoice" id="data-invoice" required="required" />
+    {!! Form::close() !!}
+
+
 </section><!-- /.content -->
 
 @endsection

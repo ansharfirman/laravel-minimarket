@@ -1,7 +1,7 @@
 <!-- Logo -->
 <a href="{{ url('') }}" class="logo">
     <!-- mini logo for sidebar mini 50x50 pixels -->
-    <span class="logo-mini"><b>MINI</b></span>
+    <span class="logo-mini"><i class="fa fa-cart-plus fa-2x"></i></span>
     <!-- logo for regular state and mobile devices -->
     <span class="logo-lg"><b>{{ env('APP_NAME', 'Laravel') }}</b></span>
 </a>

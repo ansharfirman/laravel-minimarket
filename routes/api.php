@@ -22,6 +22,7 @@ Route::group(['middleware' => ['api', 'XSS'], 'prefix' => 'auth'], function ($ro
 
 Route::group(['middleware' => ['jwt.auth', 'XSS']], function() {
     Route::post('skin/change', '\App\Http\Controllers\Api\SettingController@changeSkin');
+    Route::post('product/get', '\App\Http\Controllers\Api\ProductController@getProduct');
     Route::post('datatable/get/{model}', '\App\Http\Controllers\Api\DataTableController@getDataTable');
     Route::post('datatable/transaction/{type}', '\App\Http\Controllers\Api\DataTableController@getTransactionDataTable');
     Route::post('datatable/delete', '\App\Http\Controllers\Api\DataTableController@removeDataTable');

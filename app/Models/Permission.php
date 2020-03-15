@@ -12,18 +12,14 @@ class Permission extends \Spatie\Permission\Models\Permission {
            // References
            "banks",
            "customers",
-           "measures",
            "stakeholders",
            "suppliers",
-           "units",
            // Products
            "brands",
            "groups",
            "categories",
            "items",
            "product_images",
-           "product_sizes",
-           "product_discounts",
            // Transactions
            "transaction_sales",
            "transaction_purchases",

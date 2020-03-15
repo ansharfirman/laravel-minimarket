@@ -46,8 +46,8 @@
                         <th>Customer</th>
                         <th>Total Items</th>
                         <th>Subtotal</th>
-                        <th>Discount (%)</th>
-                        <th>Taxes (%)</th>
+                        <th>Discount</th>
+                        <th>Taxes</th>
                         <th>Grand Total</th>
                         <th>Status</th>
                         <th>Action</th>

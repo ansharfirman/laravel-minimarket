@@ -18,6 +18,24 @@
             </div>
         </div>
         <div class="form-group">
+            <label for="" class="col-sm-2 control-label">Company Email</label>
+            <div class="col-sm-8">
+                <input type="email" class="form-control" id="company-email" name="company-email" value="{{ CommonHelper::getConfig("company-email") }}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label">Company Website</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="company-website" name="company-website" value="{{ CommonHelper::getConfig("company-website") }}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label">Company Address</label>
+            <div class="col-sm-8">
+               <textarea class="form-control" id="company-address" name="company-address" rows="5">{{ CommonHelper::getConfig("company-address") }}</textarea>
+            </div>
+        </div>
+        <div class="form-group">
             <label for="" class="col-sm-2 control-label">Company Logo</label>
             <div class="col-sm-8">
                 <input type="hidden" class="file-input-image-preview" value="{{ CommonHelper::getCompanyLogo() }}" />
@@ -49,15 +67,15 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="" class="col-sm-2 control-label">Default Discount (%)</label>
+            <label for="" class="col-sm-2 control-label">Default Sale Discount (%)</label>
             <div class="col-sm-8">
-                <input type="number" min="0" step="any" max="100" class="form-control" id="default-discount" name="default-discount" value="{{ CommonHelper::getConfig("default-discount") }}">
+                <input type="number" min="0" step="any" max="100" class="form-control" id="default-discount" name="default-discount" value="{{ is_numeric(CommonHelper::getConfig("default-discount")) ? CommonHelper::getConfig("default-discount") : 0 }}">
             </div>
         </div>
         <div class="form-group">
-            <label for="" class="col-sm-2 control-label">Default Tax (%)</label>
+            <label for="" class="col-sm-2 control-label">Default Discount Tax (%)</label>
             <div class="col-sm-8">
-                <input type="number" min="0" step="any" max="100" class="form-control" id="default-tax" name="default-tax" value="{{ CommonHelper::getConfig("default-tax") }}">
+                <input type="number" min="0" step="any" max="100" class="form-control" id="default-tax" name="default-tax" value="{{ is_numeric(CommonHelper::getConfig("default-tax")) ? CommonHelper::getConfig("default-tax") : 0 }}">
             </div>
         </div>
         <div class="form-group">

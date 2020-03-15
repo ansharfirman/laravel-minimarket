@@ -12,11 +12,10 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Group;
-use App\Models\Measure;
 use App\Models\Product;
 use App\Models\StakeHolder;
 use App\Models\Supplier;
-use App\Models\Unit;
+
 
 class DatabaseSeeder extends Seeder {
 
@@ -147,11 +146,7 @@ class DatabaseSeeder extends Seeder {
                 "description" => $faker->text
             ]);
             
-            $measure = Measure::create([
-                "code" => rand(1000, 9999),
-                "name" => $faker->name,
-                "description" => $faker->text
-            ]);
+            
             
             $stakeholder = StakeHolder::create([
                 'name'=> $faker->name,
@@ -173,29 +168,30 @@ class DatabaseSeeder extends Seeder {
                 'address'=>$faker->address,
             ]);
             
-            $unit = Unit::create([
-                "code" => rand(1000, 9999),
-                "name" => $faker->name,
-                "description" => $faker->text
-            ]);
-            
             $purchase = rand(1000,9999);
             $profit = rand(10,100);
             $sale = $purchase + (($profit / 100) * $purchase);
+
+            $sku = "PR".rand(1000, 9999)."".date("Ymd");
+
+            $check = Product::where("sku", $sku)->first();
             
-            $product = Product::create([
-                'category_id'=> $category->id,
-                'group_id'=> $group->id,
-                'brand_id'=> $brand->id,
-                'sku'=> "PR".rand(1000, 9999)."".date("Ymd"),
-                'name'=> $faker->name,
-                'price_profit'=> $profit,
-                'price_purchase'=> $purchase,
-                'price_sale'=> $sale,
-                'stock'=> 0,
-                'notes'=> $faker->text,
-                'description'=>$faker->text
-            ]);
+            if(is_null($check)){
+                $product = Product::create([
+                    'category_id'=> $category->id,
+                    'group_id'=> $group->id,
+                    'brand_id'=> $brand->id,
+                    'sku'=> $sku,
+                    'name'=> $faker->name,
+                    'price_profit'=> $profit,
+                    'price_purchase'=> $purchase,
+                    'price_sale'=> $sale,
+                    'stock'=> 0,
+                    'notes'=> $faker->text,
+                    'description'=>$faker->text
+                ]);
+            }
+            
             
         }
     }

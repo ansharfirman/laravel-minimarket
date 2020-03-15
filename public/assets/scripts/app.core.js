@@ -522,7 +522,7 @@ $(document).ready(function(){
         return this.href == pageUrl;
     }).parentsUntil(".sidebar-menu > .treeview-menu").addClass('active');
     $("#menu-utama").removeClass("hidden");
-    $("html, body, div").removeClass("active");
+    $("html, body, .wrapper, .main-sidebar, .sidebar").removeClass("active");
 
     if ($(".icheck").length) {
         $('input').iCheck({

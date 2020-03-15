@@ -3,19 +3,14 @@ var calculate = function(){
     $(".total").each(function(){
         subtotal = parseFloat(subtotal + parseFloat($(this).val()));
     });
-    let _disc = $("#_discount").val() || 0;
-    let _tax = $("#_tax").val() || 0;
-    let disc = parseFloat(subtotal) * parseFloat(_disc / 100);
-    let tax = parseFloat(subtotal) * parseFloat(_tax / 100);
+    let disc = parseFloat($("#discount").val()) || 0;
+    let tax = parseFloat($("#tax").val()) || 0;
     let grandtotal = (parseFloat(subtotal) + parseFloat(tax)) - parseFloat(disc);
     let cash = parseFloat($("#cash").val());
     let change = parseFloat(cash) - parseFloat(grandtotal);
     $("#subtotal").val(subtotal.toFixed(2));
-    $("#discount").val(disc.toFixed(2));
-    $("#tax").val(tax.toFixed(2));
     $("#grandtotal, .grandtotal").val(grandtotal.toFixed(2));
     $("#change").val(change >= 0 ? change.toFixed(2) : 0);
-
     let total_items = 0;
     $(".qty").each(function(){
         let _qty = $(this).val();
@@ -27,15 +22,9 @@ var calculate = function(){
 var calculateBill = function(elem){
     let rowId = $(elem).attr("data-id");
     let qty = parseFloat($(elem).val());
-    let stock = parseFloat($(".stock[data-id='"+rowId+"']").val());
     let price = parseFloat($(".price[data-id='"+rowId+"']").val());
-    //console.log(qty, stock, price);
-    if(stock > qty){
-        let total = parseFloat(qty * price) || 0;
-        $(".total[data-id='"+rowId+"']").val(total.toFixed(2));
-    }else{
-        $(".total[data-id='"+rowId+"']").val(price);
-    }
+    let total = parseFloat(qty * price) || 0;
+    $(".total[data-id='"+rowId+"']").val(total.toFixed(2));
     calculate();
 }
 
@@ -43,7 +32,7 @@ var loadProduct = function(){
     headerRequest();
     $("#loader").html('<i class="fa fa-spinner fa-spin"></i>&nbsp; Load Data...');
     let data =  {
-        "type" : 1,
+        "type" : 2,
         "category_id" : $("#category_id").val(),
         "brand_id" : $("#brand_id").val(),
         "group_id" : $("#group_id").val(),
@@ -63,7 +52,7 @@ var createInvoice = function(){
         "invoice_date": $("#invoice_date").val(),
         "invoice_number": $("#invoice_number").val(),
         "model_id": $("#model_id").val(),
-        "customer_id": $("#customer_id").val(),
+        "supplier_id": $("#supplier_id").val(),
         "subtotal": $("#subtotal").val(),
         "discount": $("#discount").val(),
         "tax": $("#tax").val(),
@@ -109,11 +98,10 @@ var addItem = function(product){
                     <input type="hidden" name="product_id[]" value="`+product.id+`" data-id="`+product.id+`"  />
                     <input type="hidden" class="product_sku" value="`+product.sku+`" data-id="`+product.id+`"  />
                     <input type="hidden" class="product_name" value="`+product.name+`" data-id="`+product.id+`"  />
-                    <input type="hidden" class="stock" name="stock[]" value="`+product.stock+`" data-id="`+product.id+`"  />
                     <input type="text" class="form-control" readonly="readonly" value="`+product.sku+` - `+product.name+`" />
                 </div>
                 <div class="col-md-2">
-                    <input type="text" name="price[]" class="form-control price" readonly="readonly" value="`+product.price_sale+`" data-id="`+product.id+`"/>
+                    <input type="text" name="price[]" class="form-control price" readonly="readonly" value="`+product.price_purchase+`" data-id="`+product.id+`"/>
                 </div>
                 <div class="col-md-2">
                     <div class="input-group">
@@ -122,7 +110,7 @@ var addItem = function(product){
                                 <i class="fa fa-minus"></i>
                             </a>
                         </div>
-                        <input type="number" name="qty[]" min="`+product.stock+`" value="0" class="form-control text-center qty" data-id="`+product.id+`">
+                        <input type="number" name="qty[]" value="0" class="form-control text-center qty" data-id="`+product.id+`">
                         <div class="input-group-btn">
                             <a href='javascript:void(0);' class="btn btn-success btn-plus" data-id="`+product.id+`" data-toggle='tooltip' data-placement='bottom'  data-original-title='Increase Qty'>
                                 <i class="fa fa-plus"></i>
@@ -257,11 +245,8 @@ $(function(){
         e.preventDefault();
         let id = $(this).attr("data-id");
         let current = $(".qty[data-id='"+id+"']").val() || 0;
-        let stock = $(".qty[data-id='"+id+"']").attr("min");
         let add = parseInt(current) + 1;
-        if(parseInt(add) <= stock){
-            $(".qty[data-id='"+id+"']").val(add);
-        }
+        $(".qty[data-id='"+id+"']").val(add);
         calculateBill($(".qty[data-id='"+id+"']"));
         calculate();
         return false;
@@ -269,18 +254,31 @@ $(function(){
 
     $("body").on("click", ".to-checkout", function(e){
         e.preventDefault();
-        let customer_id = $("#customer_id").val();
+        let supplier_id = $("#supplier_id").val();
         let grandtotal = parseFloat($("#grandtotal").val());
-        if(!customer_id){
+        let isZero = 0;
+        $(".qty").each(function(){
+            let qt = $(this).val();
+            if(parseInt(qt) <= 0){
+                isZero = isZero + 1;
+            }
+        });
+        if(!supplier_id){
             toastShow({
                 "title": "Warning",
-                "message": "The customer field is required !!",
+                "message": "The supplier field is required !!",
                 "mode": "warning"
             });
-        }else if(grandtotal === 0){
+        }else if(isZero > 0){
             toastShow({
                 "title": "Warning",
-                "message": "The grand total cannot 0 !!",
+                "message": "The qty total cannot zerro !!",
+                "mode": "warning"
+            });
+        }else if(grandtotal <= 0){
+            toastShow({
+                "title": "Warning",
+                "message": "The grand total cannot <= 0 !!",
                 "mode": "warning"
             });
         }else{
@@ -302,6 +300,18 @@ $(function(){
     });
 
     $("body").on("keyup","#cash", function(e){
+        e.preventDefault();
+        calculate();
+        return false;
+    });
+
+    $("body").on("keyup","#discount", function(e){
+        e.preventDefault();
+        calculate();
+        return false;
+    });
+
+    $("body").on("keyup","#tax", function(e){
         e.preventDefault();
         calculate();
         return false;

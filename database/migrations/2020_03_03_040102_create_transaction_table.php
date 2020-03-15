@@ -22,15 +22,16 @@ class CreateTransactionTable extends Migration
             $table->unsignedBigInteger('stakeholder_id')->nullable();
             $table->boolean('is_purchased')->default(0);
             $table->integer('type')->default(0);
+            $table->string('creditcard_number')->nullable();
             $table->date('invoice_date')->nullable();
             $table->string('invoice_number')->unique();
             $table->integer('total_items')->default(0);
-            $table->float('subtotal')->default(0);
+            $table->double('subtotal', 19, 2)->default(0);
             $table->decimal('tax')->default(0);
             $table->decimal('discount')->default(0);
-            $table->float('grandtotal')->default(0);
-            $table->float('cash')->default(0);
-            $table->float('change')->default(0);
+            $table->double('grandtotal', 19, 2)->default(0);
+            $table->double('cash', 19, 2)->default(0);
+            $table->double('change', 19, 2)->default(0);
             $table->text('notes')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
@@ -46,9 +47,9 @@ class CreateTransactionTable extends Migration
         Schema::create('transactions_details', function (Blueprint $table) {
             $table->unsignedBigInteger('transaction_id');
             $table->unsignedBigInteger('product_id');
-            $table->float('price')->default(0);
+            $table->double('price', 19, 2)->default(0);
             $table->integer('qty')->default(0);
-            $table->float('total')->default(0);
+            $table->double('total', 19, 2)->default(0);
             $table->timestamps();
             $table->index("transaction_id");
             $table->index("product_id");
@@ -56,15 +57,7 @@ class CreateTransactionTable extends Migration
             $table->engine = 'InnoDB';
         });
 
-        Schema::create('transactions_fee_details', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('transaction_id');
-            $table->text('description')->nullable();
-            $table->float('total')->default(0);
-            $table->timestamps();
-            $table->index("transaction_id");
-            $table->engine = 'InnoDB';
-        });
+       
 
     }
 
@@ -77,6 +70,5 @@ class CreateTransactionTable extends Migration
     {
         Schema::dropIfExists('transactions');
         Schema::dropIfExists('transactions_details');
-        Schema::dropIfExists('transactions_fee_details');
     }
 }
