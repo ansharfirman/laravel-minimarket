@@ -29,4 +29,8 @@ Route::group(['middleware' => ['jwt.auth', 'XSS']], function() {
     Route::group(['prefix' => 'upload'], function () {
         Route::post('user/profile', '\App\Http\Controllers\Api\UploadController@userProfile')->name("upload.user.profile");
     });
+    Route::group(['prefix' => 'dashboard'], function () {
+        Route::post('summary', '\App\Http\Controllers\Api\DashboardController@summary');
+    });
+   
 });
