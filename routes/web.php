@@ -67,7 +67,7 @@ Route::group(['middleware' => ['SessionTimeout', 'XSS', 'auth']], function ($rou
         Route::get('invoice_loader', '\App\Http\Controllers\Main\Transaction\InvoiceController@previewLoader')->name("invoice.loader");
     });
 
-    
+    Route::resource('reports', '\App\Http\Controllers\Main\ReportController');
 
     Route::group(['prefix' => 'setting'], function () {
         Route::resource('settings', '\App\Http\Controllers\Main\Setting\SettingController');
