@@ -58,37 +58,37 @@ class ReportController extends MainController{
         if(in_array($id, $types)){
             $report_type = $request->get("report_type");
             $filter = $request->get("filter");
-            $data_start = $request->get("data_start");
+            $date_start = $request->get("date_start");
             $date_end = $request->get("date_end");
-            $data = Report::getTransaction($report_type, $filter, $data_start, $date_end);
+            $data = Report::getTransaction($report_type, $filter, $date_start, $date_end);
             if($id == self::REPORT_SALE){
                 if((int) $filter == 1){
-                    return view("main.sale.period", ["data"=> $data]);
+                    return view("main.report.sale.period", ["data"=> $data]);
                 }
                 if((int) $filter == 2){
-                    return view("main.sale.product", ["data"=> $data]);
+                    return view("main.report.sale.product", ["data"=> $data]);
                 }
                 if((int) $filter == 3){
-                    return view("main.sale.customer", ["data"=> $data]);
+                    return view("main.report.sale.customer", ["data"=> $data]);
                 }
             }
             if($id == self::REPORT_PURCHASE){
                 if((int) $filter == 1){
-                    return view("main.sale.period", ["data"=> $data]);
+                    return view("main.report.purchase.period", ["data"=> $data]);
                 }
                 if((int) $filter == 2){
-                    return view("main.sale.product", ["data"=> $data]);
+                    return view("main.report.purchase.product", ["data"=> $data]);
                 }
                 if((int) $filter == 3){
-                    return view("main.sale.supplier", ["data"=> $data]);
+                    return view("main.report.purchase.supplier", ["data"=> $data]);
                 }
             }
             if($id == self::REPORT_FEE){
                 if((int) $filter == 1){
-                    return view("main.sale.period", ["data"=> $data]);
+                    return view("main.report.fee.period", ["data"=> $data]);
                 }
                 if((int) $filter == 2){
-                    return view("main.sale.stakeholder", ["data"=> $data]);
+                    return view("main.report.fee.stakeholder", ["data"=> $data]);
                 }
             }
         }else{

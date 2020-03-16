@@ -25,9 +25,10 @@
                 <i class="fa fa-show"></i>&nbsp;Show report fee
            </h3>
         </div>
-        <form class="form-horizontal" method="POST" action="{{ route('reports.update', ['id'=> 3]) }}">
+        <form class="form-horizontal" method="POST" action="{{ route('reports.update', ['id'=> 3]) }}" target="_blank">
             {{ csrf_field() }}
             {!! method_field('patch') !!}
+            <input type="hidden" name="report_type" value="3" />
             <div class="box-body">
                 <div class="form-group">
                     <label for="" class="col-sm-2 control-label">Filter By</label>

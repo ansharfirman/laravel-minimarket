@@ -25,9 +25,10 @@
                 <i class="fa fa-show"></i>&nbsp;Show report sale order
            </h3>
         </div>
-        <form class="form-horizontal" method="POST" action="{{ route('reports.update', ['id'=> 1]) }}">
+        <form class="form-horizontal" method="POST" action="{{ route('reports.update', ['id'=> 1]) }}" target="_blank">
             {{ csrf_field() }}
             {!! method_field('patch') !!}
+            <input type="hidden" name="report_type" value="1" />
             <div class="box-body">
                 <div class="form-group">
                     <label for="" class="col-sm-2 control-label">Filter By</label>
