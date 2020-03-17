@@ -57,7 +57,7 @@ Then open your browser with http://localhost:8000/
 <pre>
 if you want to run different port 
 try using php artisan serve --port=[PORT_NUMBER] 
-example php artisan serve --port=7070
+example php artisan serve --port=3020
 </pre>
 </div>
 
