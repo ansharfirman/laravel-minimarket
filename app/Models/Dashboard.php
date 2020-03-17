@@ -14,9 +14,13 @@ use DB;
 class Dashboard extends Model{
 
     public static function getLineChart($type){
+        $year = date("Y");
         $response = array();
         for($i = 1; $i <=12; $i++){
-            $response[] = Transaction::where("is_purchased", 1)->whereDate("created_at", "=", $i)->where("type", $type)->sum("grandtotal");
+            $response[] = Transaction::where("is_purchased", 1)
+                ->whereRaw("YEAR(invoice_date) = ".$year." AND MONTH(invoice_date) = ".$i)
+                ->where("type", $type)
+                ->sum("grandtotal");
         }
         return $response;
     }

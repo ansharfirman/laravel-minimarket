@@ -37,8 +37,10 @@ class DashboardController extends BaseController{
             "purchase_product"=> Dashboard::getProductNowYear(2),
             "sale_product"=> Dashboard::getProductNowYear(1),
             "user_activity"=> Dashboard::getUserActivity(),
-            "linechart_purchase"=> Dashboard::getLineChart(2),
-            "linechart_sale"=> Dashboard::getLineChart(1),
+        );
+        $response["linechart"] = array(
+            "purchase"=> Dashboard::getLineChart(2),
+            "sale"=> Dashboard::getLineChart(1),
         );
         return response()->json($response);
     }

@@ -25,11 +25,10 @@ class Permission extends \Spatie\Permission\Models\Permission {
            "transaction_purchases",
            "transaction_fees",
            // Reports
-           "report_sales",
-           "report_purchases",
-           "report_fees",
+           "reports",
            // Settings
            "audits",
+           "roles",
            "settings",
            "users",
            "audits",

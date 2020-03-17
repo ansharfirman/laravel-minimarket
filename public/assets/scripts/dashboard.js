@@ -51,7 +51,7 @@ var pieChartUserActivity = function(data){
     createPiechart(elem, PieData);
 }
 
-var lineChart = function(data){
+var lineChart = function(dt){
     var areaChartOptions = {
         responsive: true,
         legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
@@ -68,7 +68,7 @@ var lineChart = function(data){
             pointStrokeColor: "#c1c7d1",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [65, 59, 80, 81, 56, 55, 40, 100,100,100,100,100]
+            data: dt.linechart.purchase
         },
         {
             label: "Sale",
@@ -78,7 +78,7 @@ var lineChart = function(data){
             pointStrokeColor: "rgba(60,141,188,1)",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(60,141,188,1)",
-            data: [28, 48, 40, 19, 86, 27, 90,100,100,100,100,100]
+            data: dt.linechart.sale
         }
     ]
     };

@@ -521,6 +521,17 @@ $(document).ready(function(){
     $('ul.treeview-menu a').filter(function() {
         return this.href == pageUrl;
     }).parentsUntil(".sidebar-menu > .treeview-menu").addClass('active');
+
+    $("li.hidden").remove();
+
+    $("ul.treeview-menu").each(function(){
+        if (!$(this).children('li').length) {
+            $(this).parent().remove();
+        }   
+    });
+
+    
+
     $("#menu-utama").removeClass("hidden");
     $("html, body, .wrapper, .main-sidebar, .sidebar").removeClass("active");
 

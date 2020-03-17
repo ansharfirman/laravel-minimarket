@@ -133,4 +133,13 @@ class User extends Authenticatable implements JWTSubject, Auditable {
         return self::where($this->table.".id", "!=", $user->id);
     }
 
+    public function grantAccess($route){
+        $user = \Auth::user();
+        if(!$user->can("view_".$route)){
+            return "hidden";
+        }
+        return null;
+    }
+
+    
 }
