@@ -1,5 +1,5 @@
 <a href="https://photos.app.goo.gl/DwGSHjSDf3VvcoVh6">
-    View Screenshot Here..
+    View Screenshot Here
 </a>
 
 ## About Laravel Mini Market
