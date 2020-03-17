@@ -67,6 +67,6 @@ example php artisan serve --port=4567
 
 ## Security
 <p>
-    We take the security of laravel mini market, and related packages we maintain, seriously. If you have found a security issue with any of our projects please email us at sandyandryanto@gmail.com so we can work together to find and patch the issue. We appreciate responsible disclosure with any security related issues, so please contact us first before creating a Github issue.
+    I am take the security of laravel mini market, and related packages we maintain, seriously. If you have found a security issue with any of my projects please email us at <a href="mailto:sandyandryanto@gmail.com">sandyandryanto@gmail.com</a> so I can work to find and patch the issue. We appreciate responsible disclosure with any security related issues, so please contact us first before creating a Github issue.
 </p>
 
