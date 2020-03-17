@@ -43,7 +43,7 @@ git clone https://github.com/sandyandryantoo/laravel-minimarket.git
 composer update
 cp .env.example .env 
 </pre>
-<p>please set up you database and environmet in file .env</p>
+<p>please set up you database and application environment in file .env</p>
 <pre>
 php artisan key:generate
 php artisan jwt:secret
