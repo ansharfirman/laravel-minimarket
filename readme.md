@@ -41,7 +41,10 @@ Laravel Mini Market is an open source web based point of sales system built on L
 git clone https://github.com/sandyandryantoo/laravel-minimarket.git
 <span class="pl-c1">cd</span> laravel-minimarket
 composer update
-cp .env.example .env // please set up you database and environmet in file .env
+cp .env.example .env 
+</pre>
+<p>please set up you database and environmet in file .env</p>
+<pre>
 php artisan key:generate
 php artisan jwt:secret
 php artisan config:cache
@@ -54,7 +57,9 @@ php artisan serve
 Then open your browser with http://localhost:8000/
 </pre>
 <pre>
-if you want to run different port try using php artisan serve --port=[PORT_NUMBER] example php artisan serve --port=7070
+if you want to run different port 
+try using php artisan serve --port=[PORT_NUMBER] 
+example php artisan serve --port=7070
 </pre>
 </div>
 
