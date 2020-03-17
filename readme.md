@@ -1,4 +1,4 @@
-<a href="https://photos.app.goo.gl/DwGSHjSDf3VvcoVh6">
+<a target="_blank" href="https://photos.app.goo.gl/DwGSHjSDf3VvcoVh6">
     View Screenshot Here
 </a>
 
