@@ -36,6 +36,12 @@
             </div>
         </div>
         <div class="form-group">
+            <label for="" class="col-sm-2 control-label">Encryption</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="mail-encryption" name="mail-encryption" value="{{ CommonHelper::getConfig("mail-encryption") }}">
+            </div>
+        </div>
+        <div class="form-group">
             <label for="" class="col-sm-2 control-label">From Address</label>
             <div class="col-sm-8">
                 <input type="text" class="form-control" id="mail-address" name="mail-address" value="{{ CommonHelper::getConfig("mail-address") }}">
