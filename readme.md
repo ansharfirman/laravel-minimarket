@@ -1,5 +1,3 @@
-<p align="center"><img src="https://photos.app.goo.gl/NQi6WMByHfytZrQa7"></p>
-
 ## About Laravel Mini Market
 Laravel Mini Market is an open source web based point of sales system built on Laravel 5.5, with a community support. It's focused on user experience, and offers precise control for designers and developers.
 
