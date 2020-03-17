@@ -37,24 +37,24 @@ Laravel Mini Market is an open source web based point of sales system built on L
 <p>To get started with Wagtail, run the following in a virtual environment:</p>
 
 <div class="highlight highlight-source-shell">
-    <pre>
-        git clone https://github.com/sandyandryantoo/laravel-minimarket.git
-        <span class="pl-c1">cd</span> laravel-minimarket
-        composer update
-        cp .env.example .env
-        php artisan key:generate
-        php artisan jwt:secret
-        php artisan config:cache
-        php artisan config:clear
-        php artisan cache:clear
-        php artisan serve
-    </pre>
-    <pre>
-        Then open your browser with http://localhost:8000/
-    </pre>
-    <pre>
-        if you want to run different port try using php artisan serve --port=[PORT_NUMBER] example php artisan serve --port=7070
-    </pre>
+<pre>
+git clone https://github.com/sandyandryantoo/laravel-minimarket.git
+<span class="pl-c1">cd</span> laravel-minimarket
+composer update
+cp .env.example .env
+php artisan key:generate
+php artisan jwt:secret
+php artisan config:cache
+php artisan config:clear
+php artisan cache:clear
+php artisan serve
+</pre>
+<pre>
+Then open your browser with http://localhost:8000/
+</pre>
+<pre>
+if you want to run different port try using php artisan serve --port=[PORT_NUMBER] example php artisan serve --port=7070
+</pre>
 </div>
 
 ## Security
