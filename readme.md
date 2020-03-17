@@ -1,4 +1,4 @@
-<p align="center"><img src="https://www.dropbox.com/s/iem18a9c754uo7q/login.png?dl=0"></p>
+<p align="center"><img src="https://photos.app.goo.gl/NQi6WMByHfytZrQa7"></p>
 
 ## About Laravel Mini Market
 Laravel Mini Market is an open source web based point of sales system built on Laravel 5.5, with a community support. It's focused on user experience, and offers precise control for designers and developers.
@@ -45,11 +45,11 @@ cp .env.example .env
 </pre>
 <p>please set up you database and application environment in file .env</p>
 <pre>
-php artisan key:generate
-php artisan jwt:secret
 php artisan config:cache
 php artisan config:clear
 php artisan cache:clear
+php artisan key:generate
+php artisan jwt:secret
 php artisan db:seed
 php artisan serve
 </pre>
