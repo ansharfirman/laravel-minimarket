@@ -27,7 +27,6 @@ class Permission extends \Spatie\Permission\Models\Permission {
            // Reports
            "reports",
            // Settings
-           "audits",
            "roles",
            "settings",
            "users",
