@@ -17,7 +17,7 @@ class CommonHelper{
         if($skin != 'app-theme'){
             return $skin;
         }
-        return "skin-blue";
+        return "skin-yellow";
     }
 
     public static function getBoxTheme(){
@@ -26,7 +26,7 @@ class CommonHelper{
         if($box != 'app-box'){
             return $box;
         }
-        return $theme == "app-theme" ? "box-primary" : "box-default";
+        return $theme == "app-theme" ? "box-warning" : "box-default";
     }
 
     public static function getCompanyLogo(){
