@@ -104,8 +104,8 @@ class RegisterController extends Controller
         if(!is_null($userConfirm)){
             $user = $userConfirm->user;
             $message = null;
-            if(!$user->confirm){
-                $userConfirm->user->confirm = 1;
+            if(!$user->is_confirm){
+                $userConfirm->user->is_confirm = 1;
                 $userConfirm->user->save();
                 $message = "Your e-mail is verified. You can now login.";
             }else{
