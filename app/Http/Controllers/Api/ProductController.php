@@ -22,7 +22,7 @@ class ProductController extends BaseController{
     public function getProduct(Request $request){
         $data = array();
         $products = Product::where("products.id", "<>", 0);
-        $image = url("assets/dist/img/no-image.png");
+       
 
         if($request->get("category_id")){
             $products->where("category_id", $request->get("category_id"));
@@ -61,6 +61,7 @@ class ProductController extends BaseController{
                 $row = $response;
                 if(isset($row[$j]->id)){
 
+                    $image = url("assets/dist/img/no-image.png");
                     $imagePrimary = ProductImage::where("product_id", $row[$j]->id)->where("is_primary", 1)->first();
                     $imageOrder = ProductImage::where("product_id", $row[$j]->id)->inRandomOrder()->first();
 
