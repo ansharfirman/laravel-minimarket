@@ -21,8 +21,6 @@ var pieOptions = {
     maintainAspectRatio: false,
     //String - A legend template
     legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li style=\"color:<%=segments[i].fillColor%>\"><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>",
-    //String - A tooltip template
-    tooltipTemplate: "<%=value %> <%=label%> users"
 };
 
 var createPiechart = function(elem, data){

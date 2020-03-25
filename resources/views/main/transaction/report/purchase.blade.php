@@ -22,7 +22,7 @@
     <div class="box {{ CommonHelper::getBoxTheme() }}">
         <div class="box-header with-border">
             <h3 class="box-title">
-                <i class="fa fa-show"></i>&nbsp;Show report purchase order
+                <i class="fa fa-file-text-o"></i>&nbsp;Show report purchase order
            </h3>
         </div>
         <form class="form-horizontal" method="POST" action="{{ route('reports.update', ['id'=> 2]) }}" target="_blank">
