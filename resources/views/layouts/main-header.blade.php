@@ -27,7 +27,7 @@
                         <img src="{{ asset(\Auth::User()->getImageProfile()) }}" class="img-circle img-user" alt="User Image">
                         <p>
                             {{ \Auth::User()->getFullname() }} - {{ \Auth::User()->getRolesInfo() }}
-                            <small>Member since {{ \Auth::User()->created_at }}</small>
+                            <small>Member since {{ \Carbon\Carbon::parse(\Auth::User()->created_at)->toFormattedDateString() }} </small>
                         </p>
                     </li>
                     <!-- Menu Footer-->
