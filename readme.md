@@ -36,7 +36,7 @@ Laravel Mini Market is an open source web based point of sales system built on L
 ## Getting started
 
 <p>Laravel Mini Market works with <a href="https://laravel.com/" rel="nofollow">Laravel 5</a>, on any platform.</p>
-<p>To get started with Wagtail, run the following in a virtual environment:</p>
+<p>To get started with Laravel Mini Market, run the following in a virtual environment:</p>
 
 <div class="highlight highlight-source-shell">
 <pre>
